@@ -278,10 +278,37 @@ def svg_charity(r, gid):
     s += '<rect y="230" width="400" height="20" fill="#9AA0A6"/>'
     return s
 
+def svg_museums(r, gid):
+    s = sky(r, gid) + clouds(r)
+    stone = r.choice(["#EFE6D2", "#E2D6BC", "#D8CCB0"])
+    s += f'<path d="M80 95 L200 45 L320 95Z" fill="{stone}"/><rect x="80" y="95" width="240" height="12" fill="#C9BFA8"/>'
+    s += ''.join(f'<rect x="{96+i*44}" y="107" width="18" height="88" fill="{stone}"/>' for i in range(6))
+    s += f'<rect x="70" y="195" width="260" height="14" fill="#C9BFA8"/><rect x="60" y="209" width="280" height="14" fill="#B9AE96"/>'
+    s += f'<rect y="223" width="400" height="27" fill="{r.choice(["#7CB342","#9AA0A6"])}"/>'
+    return s
+def svg_sport(r, gid):
+    s = sky(r, gid)
+    s += '<path d="M0 120 Q200 60 400 120 L400 150 L0 150Z" fill="#B0BEC5"/>'
+    s += ''.join(f'<rect x="{i*20}" y="{110 - abs(200 - i*20)//12}" width="14" height="6" fill="{r.choice(PAL["pop"])}" opacity=".8"/>' for i in range(20))
+    s += '<rect y="150" width="400" height="100" fill="#4CAF50"/>' + ''.join(f'<rect x="{i*50}" y="150" width="25" height="100" fill="#66BB6A"/>' for i in range(8))
+    s += '<rect x="185" y="175" width="30" height="60" fill="#D7CCC8"/><g stroke="#fff" stroke-width="3"><line x1="192" y1="172" x2="192" y2="186"/><line x1="200" y1="172" x2="200" y2="186"/><line x1="208" y1="172" x2="208" y2="186"/></g>'
+    s += f'<circle cx="{r.randint(80,140)}" cy="{r.randint(170,210)}" r="9" fill="#C62828"/>'
+    return s
+def svg_markets(r, gid):
+    s = sky(r, gid) + clouds(r)
+    s += '<rect y="200" width="400" height="50" fill="#9AA0A6"/>'
+    for i in range(3):
+        x = 20 + i*130; c = r.choice(PAL["pop"])
+        s += f'<rect x="{x}" y="130" width="110" height="70" fill="#8D6346"/>'
+        s += ''.join(f'<rect x="{x+j*22}" y="100" width="11" height="30" fill="{c}"/><rect x="{x+11+j*22}" y="100" width="11" height="30" fill="#fff"/>' for j in range(5))
+        s += ''.join(f'<circle cx="{x+15+k*20}" cy="{125}" r="8" fill="{r.choice(["#E8483B","#FFD23F","#7CB342","#E8930C"])}"/>' for k in range(5))
+        s += f'<rect x="{x}" y="96" width="110" height="6" fill="#5A3A22"/><rect x="{x}" y="96" width="4" height="104" fill="#5A3A22"/><rect x="{x+106}" y="96" width="4" height="104" fill="#5A3A22"/>'
+    return s
+
 GEN = {"sights": svg_sights, "galleries": svg_galleries, "shops": svg_shops, "records": svg_records, "vintage": svg_vintage,
        "cafes": lambda r, g: svg_food(r, g, "cafes"), "cheap": lambda r, g: svg_food(r, g, "cheap"),
        "mid": lambda r, g: svg_food(r, g, "mid"), "splurge": lambda r, g: svg_food(r, g, "splurge"),
-       "pubs": svg_pubs, "bars": svg_bars, "gear": svg_gear, "food": svg_food_shop, "fun": svg_fun, "music": svg_music, "parks": svg_parks, "trips": svg_trips, "fashion": svg_fashion, "charity": svg_charity}
+       "pubs": svg_pubs, "bars": svg_bars, "gear": svg_gear, "food": svg_food_shop, "fun": svg_fun, "music": svg_music, "parks": svg_parks, "trips": svg_trips, "fashion": svg_fashion, "charity": svg_charity, "museums": svg_museums, "sport": svg_sport, "markets": svg_markets}
 def wrap(body, vb="0 0 400 250"):
     return f'<svg viewBox="{vb}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">{body}</svg>'
 

@@ -8,6 +8,9 @@ CATS = {
  "gear":     {"sec":"see","title":"Cameras, music & tech","emoji":"📷","color":"#0E7490"},
  "food":     {"sec":"see","title":"Food shops & world grocers","emoji":"🧀","color":"#B45309"},
  "fun":      {"sec":"see","title":"Escape rooms & things to do","emoji":"🧩","color":"#DB2777"},
+ "museums":  {"sec":"see","title":"Museums","emoji":"🏛️","color":"#7C2D12"},
+ "sport":    {"sec":"see","title":"Sport","emoji":"🏏","color":"#166534"},
+ "markets":  {"sec":"see","title":"Markets","emoji":"🧺","color":"#A16207"},
  "fashion":  {"sec":"see","title":"Clothes & boutiques","emoji":"👗","color":"#9D174D"},
  "charity":  {"sec":"see","title":"Charity shops","emoji":"♻️","color":"#15803D"},
  "parks":    {"sec":"see","title":"Parks & walks","emoji":"🌳","color":"#2F855A"},
@@ -30,7 +33,7 @@ def add(cat, name, addr, text, tip, price=0, web="", ta=True, far=False, geo=Non
 add("sights","City of Caves","Garner's Hill steps, Sussex Street / Cliff Road, NG1 1HF",
  "Nottingham sits on soft sandstone riddled with more than 800 man-made caves. This guided tour takes you through medieval tannery pits, a WWII air-raid shelter and Victorian slum cellars right under the city centre. Tours run about every 30–45 minutes and take around an hour.",
  "Entrance at the foot of the Garner's Hill steps, by Nottingham Contemporary · now run by the National Justice Museum",web="https://nationaljusticemuseum.org.uk/cityofcaves",ll=(52.95045,-1.14520),geo="City of Caves, Nottingham")
-add("sights","National Justice Museum","Shire Hall, High Pavement, NG1 1HN",
+add("museums","National Justice Museum","Shire Hall, High Pavement, NG1 1HN",
  "A Victorian courthouse and county gaol in the Lace Market, where you can stand in the dock, see the cells and the execution yard, and hear the grim stories of people tried here. Actors in costume bring the courtroom to life on some days.",
  "Allow 2 hours; good on a rainy day",web="https://www.nationaljusticemuseum.org.uk",geo="National Justice Museum, High Pavement, Nottingham")
 add("sights","Nottingham Castle","Lenton Road, NG1 6EL",
@@ -527,3 +530,47 @@ add("trips","Chatsworth","Bakewell, Derbyshire, DE45 1PP",
 add("trips","Lincoln","Castle Square, Lincoln, LN1 3AA",
  "A hilltop cathedral city: the castle holds an original Magna Carta, the cathedral is one of England's finest, and steep Steep Hill is lined with independent shops. The cathedral holds a ticketed Christmas market on 3–5 December 2026.",
  "Park at the top of the hill and walk down Steep Hill",far=True,drive="55 min",geo="Lincoln Castle")
+
+# ---------------- CINEMA ----------------
+add("sights","Savoy Cinema","233 Derby Road, Lenton, NG7 1QN",
+ "Nottingham's oldest working cinema, opened in 1935 and the city's only surviving pre-war picture house. It shows new releases and NT Live screenings, and you can book a two-person booth.",
+ "Cheap tickets compared with the multiplexes · a walk up Derby Road",web="https://www.savoycinemas.co.uk",geo="Savoy Cinema, Derby Road, Nottingham")
+
+# ---------------- MUSEUMS ----------------
+add("museums","Museum of Nottingham Life at Brewhouse Yard","Castle Boulevard, NG7 1FB",
+ "A row of 17th-century cottages built against Castle Rock, recreating Nottingham homes and shops through the centuries, with caves cut into the rock behind. Right next to the Trip to Jerusalem.",
+ "Check first: listed as weekends 12:00–15:00, but some sources say temporarily closed",ta=True,geo="Museum of Nottingham Life at Brewhouse Yard")
+add("museums","Nottingham Industrial Museum","Courtyard Buildings, Wollaton Park, NG8 2AE",
+ "Volunteer-run collection in Wollaton Hall's 18th-century stable block, covering lace machines, bicycles, telephones and a working beam engine. On 'steaming Sundays' the engines run under steam.",
+ "Thu–Sun 11–4 · steaming Sunday 29 Nov 2026 (£6 adults)",web="https://nottinghamindustrialmuseum.org.uk",far=True,geo="Nottingham Industrial Museum")
+add("museums","D.H. Lawrence Birthplace Museum","8a Victoria Street, Eastwood, NG16 3AW",
+ "The small terraced miner's house where D.H. Lawrence was born in 1885, furnished as it would have been, with changing exhibitions. Eastwood is the 'Bestwood' of Sons and Lovers.",
+ "Thu–Sat 10:00–16:00",web="https://www.broxtowe.gov.uk/dhlawrencemuseum",far=True,drive="25 min",geo="D.H. Lawrence Birthplace Museum")
+add("museums","National Holocaust Centre and Museum","Acre Edge Road, Laxton, NG22 0PA",
+ "Britain's only dedicated Holocaust museum, in quiet countryside, with a Jewish refugee children's exhibition, memorial gardens and survivor testimony events. Moving and very well done.",
+ "Hours vary between listings; check before you go",far=True,drive="35 min",geo="National Holocaust Centre")
+
+# ---------------- SPORT ----------------
+add("sport","Trent Bridge","Bridgford Road, West Bridgford, NG2 6AG",
+ "One of the world's great Test cricket grounds, home of Nottinghamshire since 1841, with a heritage centre and a famous pavilion. The season runs April to September.",
+ "Guided tours Tuesdays 14:00 · Heritage Open Days free visits in September",web="https://www.trentbridge.co.uk",far=True,geo="Trent Bridge Cricket Ground")
+add("sport","The City Ground (Nottingham Forest)","Pavilion Road, NG2 5FJ",
+ "Home of the twice European Cup-winning club, on the banks of the Trent. Museum and stadium tours run on selected non-match days, including legends tours led by former players.",
+ "Book tours via the club; match tickets are scarce",far=True,geo="City Ground, Nottingham")
+add("sport","Meadow Lane (Notts County)","Meadow Lane, NG2 3HJ",
+ "Home of Notts County, founded in 1862 and the oldest professional football league club in the world. Match tickets are far easier to get than at Forest across the river.",
+ "A ten-minute walk from the station",far=True,geo="Meadow Lane Stadium, Nottingham")
+add("sport","Nottingham Panthers ice hockey","Motorpoint Arena, Bolero Square, NG1 1LA",
+ "The city's Elite League ice hockey team plays in a big, loud arena in the Lace Market. A brilliant night out even if you've never watched a game. Next home game I found: Friday 27 November 2026 against Dundee Stars.",
+ "Match tickets about £11–27; season tickets sold out",web="https://www.panthers.co.uk",geo="Motorpoint Arena Nottingham")
+add("sport","National Water Sports Centre","Adbolton Lane, Holme Pierrepont, NG12 2LU",
+ "An Olympic-standard rowing lake and white-water course beside the Trent, where you can try white-water rafting, paddleboarding and more. The surrounding country park is good for walks.",
+ "Book activities in advance; 15 min drive",web="https://www.nwscnotts.com",far=True,drive="15 min",geo="National Water Sports Centre, Holme Pierrepont")
+
+# ---------------- MARKETS ----------------
+add("markets","West Bridgford Farmers' Market","Central Avenue (Croquet Lawn), West Bridgford, NG2",
+ "A proper farmers' market with local meat, cheese, bread, veg and street food, in West Bridgford's lively main street of independent cafés and shops.",
+ "2nd & 4th Saturdays from 8am · next: Sat 28 Nov and Sat 12 Dec",far=True,drive="15 min",geo="Central Avenue, West Bridgford")
+add("markets","Sneinton Market weekend markets","Sneinton Market, Bath Street, NG1 1DW",
+ "Sneinton Market is liveliest from Friday to Sunday, with regular food markets, makers' and vintage markets and seasonal events among the studio shops and Bustler street food.",
+ "Check the Sneinton Market Avenues listings for this weekend's market",ta=False,geo="Sneinton Market, Nottingham",ll=(52.95474,-1.13791))
