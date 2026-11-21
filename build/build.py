@@ -256,10 +256,32 @@ def svg_trips(r, gid):
         s += f'<rect x="{tx-3}" y="{ty}" width="6" height="22" fill="#6B4226"/><circle cx="{tx}" cy="{ty}" r="20" fill="#2E7D32"/>'
     return s
 
+def svg_fashion(r, gid):
+    bg = r.choice(["#FDE0F0", "#EDE7F6", "#E3F0E8", "#FFF3B0"])
+    s = f'<rect width="400" height="250" fill="{bg}"/><rect y="210" width="400" height="40" fill="#C9A27A"/>'
+    for cx in (120, 280):
+        c = r.choice(PAL["pop"])
+        s += f'<circle cx="{cx}" cy="45" r="16" fill="#E9C9A8"/><rect x="{cx-3}" y="60" width="6" height="12" fill="#E9C9A8"/>'
+        s += f'<path d="M{cx-34} 75 Q{cx} 66 {cx+34} 75 L{cx+28} 125 L{cx+42} 200 L{cx-42} 200 L{cx-28} 125Z" fill="{c}"/>'
+        s += f'<rect x="{cx-2}" y="200" width="4" height="10" fill="#555"/>'
+    s += f'<rect x="185" y="150" width="30" height="24" rx="4" fill="{r.choice(PAL["pop"])}"/><path d="M190 150 q10 -16 20 0" stroke="#333" stroke-width="3" fill="none"/>'
+    return s
+def svg_charity(r, gid):
+    s = sky(r, gid) + clouds(r)
+    col = r.choice(PAL["brick"])
+    s += f'<rect x="40" y="50" width="320" height="180" fill="{col}"/><rect x="60" y="62" width="280" height="36" rx="6" fill="#15803D"/>'
+    s += '<path d="M200 70 c-8 -10 -22 -2 -14 10 l14 12 14 -12 c8 -12 -6 -20 -14 -10z" fill="#fff"/>'
+    s += '<rect x="60" y="112" width="190" height="108" fill="#BFE3F0" stroke="#2B2D42" stroke-width="4"/><rect x="270" y="112" width="70" height="108" fill="#5A3A22"/>'
+    s += '<rect x="80" y="180" width="70" height="30" rx="4" fill="#8D6346"/><rect x="88" y="170" width="54" height="14" rx="4" fill="#A0522D"/>'
+    s += f'<circle cx="200" cy="170" r="22" fill="#1C1C1C"/><circle cx="200" cy="170" r="7" fill="{r.choice(PAL["pop"])}"/>'
+    s += f'<rect x="160" y="125" width="22" height="34" rx="3" fill="{r.choice(PAL["pop"])}"/>'
+    s += '<rect y="230" width="400" height="20" fill="#9AA0A6"/>'
+    return s
+
 GEN = {"sights": svg_sights, "galleries": svg_galleries, "shops": svg_shops, "records": svg_records, "vintage": svg_vintage,
        "cafes": lambda r, g: svg_food(r, g, "cafes"), "cheap": lambda r, g: svg_food(r, g, "cheap"),
        "mid": lambda r, g: svg_food(r, g, "mid"), "splurge": lambda r, g: svg_food(r, g, "splurge"),
-       "pubs": svg_pubs, "bars": svg_bars, "gear": svg_gear, "food": svg_food_shop, "fun": svg_fun, "music": svg_music, "parks": svg_parks, "trips": svg_trips}
+       "pubs": svg_pubs, "bars": svg_bars, "gear": svg_gear, "food": svg_food_shop, "fun": svg_fun, "music": svg_music, "parks": svg_parks, "trips": svg_trips, "fashion": svg_fashion, "charity": svg_charity}
 def wrap(body, vb="0 0 400 250"):
     return f'<svg viewBox="{vb}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">{body}</svg>'
 
@@ -274,7 +296,7 @@ for i, p in enumerate(P, 1):
     q = p["name"] + ", " + re.sub(r"^(Avenue A–C, |off |Upper Level, )", "", p["addr"]) + ", Nottingham"
     items.append(dict(id=pid, cat=p["cat"], name=p["name"], addr=p["addr"], text=p["text"], tip=p["tip"],
                       lat=round(lat, 6), lon=round(lon, 6), price=p["price"], walk=walk, img=f"img/{pid}.svg",
-                      q=q, ta=p["ta"], far=p["far"] or walk > 25, web=p["web"], drive=p.get("drive", "")))
+                      q=q, ta=p["ta"], far=p["far"] or walk > 25, web=p["web"], drive=p.get("drive", ""), who=p.get("who", [])))
 
 # special images
 r = random.Random("cover")

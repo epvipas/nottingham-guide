@@ -8,6 +8,8 @@ CATS = {
  "gear":     {"sec":"see","title":"Cameras, music & tech","emoji":"📷","color":"#0E7490"},
  "food":     {"sec":"see","title":"Food shops & world grocers","emoji":"🧀","color":"#B45309"},
  "fun":      {"sec":"see","title":"Escape rooms & things to do","emoji":"🧩","color":"#DB2777"},
+ "fashion":  {"sec":"see","title":"Clothes & boutiques","emoji":"👗","color":"#9D174D"},
+ "charity":  {"sec":"see","title":"Charity shops","emoji":"♻️","color":"#15803D"},
  "parks":    {"sec":"see","title":"Parks & walks","emoji":"🌳","color":"#2F855A"},
  "trips":    {"sec":"see","title":"Day trips","emoji":"🚗","color":"#1D4ED8"},
  "cafes":    {"sec":"eat","title":"Cafés & coffee","emoji":"☕","color":"#0F9D8A"},
@@ -20,8 +22,8 @@ CATS = {
 }
 
 P = []
-def add(cat, name, addr, text, tip, price=0, web="", ta=True, far=False, geo=None, ll=None, drive=""):
-    P.append(dict(cat=cat, name=name, addr=addr, text=text, tip=tip, price=price, web=web, ta=ta, far=far, drive=drive,
+def add(cat, name, addr, text, tip, price=0, web="", ta=True, far=False, geo=None, ll=None, drive="", who=None):
+    P.append(dict(cat=cat, name=name, addr=addr, text=text, tip=tip, price=price, web=web, ta=ta, far=far, drive=drive, who=who or [],
                   geo=geo or f"{name}, Nottingham", ll=ll))
 
 # ---------------- SIGHTS & ODDITIES ----------------
@@ -116,9 +118,9 @@ add("shops","Bridlesmith Gate & Bridlesmith Walk","Bridlesmith Gate, NG1 2GR",
 add("shops","West End Arcade","Upper Parliament Street, NG1 6JR",
  "A small arcade off Upper Parliament Street with independent fashion, gifts and cafés, near Hurts Yard and the Theatre Royal.",
  "Combine with Hurts Yard",ta=False,geo="West End Arcade, Nottingham",ll=(52.9550,-1.1532))
-add("shops","Paul Smith, Willoughby House","20 Low Pavement, NG1 7DL",
+add("fashion","Paul Smith, Willoughby House","20 Low Pavement, NG1 7DL",
  "Sir Paul Smith is Nottingham born and opened his first tiny shop here in 1970. His flagship is a gorgeous Georgian townhouse on Low Pavement, worth seeing for the interiors and the eccentric displays.",
- "Look out for the quirky objects in the windows",web="https://www.paulsmith.com",geo="Willoughby House, Low Pavement, Nottingham",ll=(52.9508,-1.1480))
+ "Look out for the quirky objects in the windows",web="https://www.paulsmith.com",who=["m","w"],geo="Willoughby House, Low Pavement, Nottingham",ll=(52.9508,-1.1480))
 add("shops","Delilah Fine Foods","12 Victoria Street, NG1 2EX",
  "A deli in a grand old banking hall: marble counters, a mezzanine café and a huge cheese counter. Buy Nottinghamshire Stilton, charcuterie and wine to take home in the car.",
  "Ask for Colston Bassett Stilton, made in Notts",web="https://www.delilahfinefoods.co.uk",geo="Delilah Fine Foods, Victoria Street, Nottingham",ll=(52.9531,-1.1477))
@@ -149,7 +151,7 @@ add("vintage","Derby Road antiques & vintage strip","Derby Road, NG1 5",
  "Walk up, lunch at the top, stroll down",ta=False,geo="Derby Road, Nottingham",ll=(52.9543,-1.1588))
 add("vintage","Cow Vintage","3 Carlton Street, Hockley, NG1 1NL",
  "A big vintage clothing store listed among the city's go-to second-hand fashion shops, with racks of denim, sportswear and retro jackets.",
- "Several Hockley vintage shops have closed recently; check it's trading",ta=False,geo="Cow Vintage, Nottingham",ll=(52.9536,-1.1449))
+ "Two floors, 1980s to early 2000s; check it's trading",ta=False,who=["m","w"],geo="Cow Vintage, Nottingham",ll=(52.9536,-1.1449))
 add("vintage","Goose Gate vintage & Hockley shops","Goose Gate, Hockley, NG1 1FF",
  "Goose Gate and Carlton Street are Hockley's main browsing streets: vintage clothes, skate and streetwear, plants, tattoo parlours and bars. Jesse Boot opened his first shop at 16 Goose Gate; look up for the original ironwork.",
  "Best late morning before the bars fill",ta=False,geo="Goose Gate, Nottingham",ll=(52.9534,-1.1430))
@@ -387,3 +389,76 @@ add("trips","Colston Bassett Dairy","Harby Lane, Colston Bassett, NG12",
 add("trips","Belvoir Castle","Grantham, NG32 1PE",
  "The Duke of Rutland's romantic hilltop castle overlooking the Vale of Belvoir, with lavish state rooms and landscaped gardens. Pair it with the Colston Bassett dairy shop on the way.",
  "Opening is seasonal; check dates before you go",far=True,drive="40 min",geo="Belvoir Castle")
+
+# ---------------- MORE GALLERIES ----------------
+add("galleries","George Thornton Art","12A Flying Horse Walk, NG1 2HN",
+ "An independent contemporary gallery in the Flying Horse Walk arcade, championing original, thought-provoking paintings and sculpture by living artists. Offers the Own Art interest-free scheme.",
+ "Easy to combine with The Cheese Shop next door",geo="George Thornton Art, Flying Horse Walk",ll=(52.952789,-1.148546))
+add("galleries","Lauren Paige Art Gallery & Writing Bureau","211 Mansfield Road, NG1 3FS",
+ "A one-artist gallery in a Victorian terrace at the Huntingdon Street junction, selling Lauren Paige's original paintings and limited-edition prints, with a writing bureau alongside.",
+ "Free 2-hour parking on North Sherwood Street behind",ta=False,geo="Lauren Paige Fine Art Gallery",ll=(52.963289,-1.151988))
+add("galleries","PSpowage Art Gallery","185 Mansfield Road, NG1 3FS",
+ "Artist Pete Spowage's gallery and studio, showing his own work and local artists. It moved here from Byard Lane in 2020 and was then open by appointment.",
+ "Check first: by appointment and may have moved",ta=False,geo="185 Mansfield Road",ll=(52.962751,-1.15166))
+add("galleries","Castle Fine Art","8–10 Exchange Arcade, NG1 2DD",
+ "A large commercial gallery inside the Council House's Exchange Arcade, part of a national chain selling original works and limited editions by well-known contemporary and celebrity artists. Good for browsing big names.",
+ "Chain gallery; staff are happy for you to browse",ta=False,geo="Castle Fine Art",ll=(52.953299,-1.148418))
+add("galleries","Aura Fine Art","23 Bridlesmith Gate, NG1 2GR",
+ "A commercial gallery on Bridlesmith Gate selling originals and limited editions for homes and offices, part of a small chain with branches in Hertfordshire and Guildford. Offers home consultations and flexible payment.",
+ "Chain gallery · around 9:30–17:30",ta=False,geo="Aura Fine Art",ll=(52.95234,-1.14707))
+add("galleries","The Harley Gallery, Welbeck","Welbeck, Worksop, S80 3LW",
+ "A major contemporary art and craft gallery on the Welbeck estate, with the Portland Collection of treasures from the Dukes of Portland. The Harley Open exhibition runs until 3 January 2027. Pair it with Creswell Crags, ten minutes away.",
+ "Free entry to the gallery; café and estate shops",far=True,drive="45 min",geo="Harley Gallery",ll=(53.262015,-1.178983))
+
+# ---------------- CLOTHES & BOUTIQUES ----------------
+add("fashion","Gigi Bottega","15 Flying Horse Walk, NG1 2HN",
+ "An independent luxury boutique run by mother and daughter Debra and Gabriella Trivigno, with high-end and contemporary designer labels for men and women. It has a cult following.",
+ "Treat yourself, or just browse",who=["m","w"],geo="Gigi Bottega",ll=(52.95308,-1.148549))
+add("fashion","Tutu Urban Boutique","Exchange Arcade, NG1 2DD",
+ "A multi-brand independent womenswear boutique, trading in Nottingham since 1989 and now in the Council House's Exchange Arcade.",
+ "Tue–Sat 10:00–17:00",ta=False,who=["w"],geo="Tutu, Exchange Arcade",ll=(52.9534,-1.148762))
+add("fashion","Flannels","11–13 Lister Gate, NG1 7DE",
+ "Frasers Group's luxury multi-brand store, the kind you only find in big cities: Stone Island, Moncler, Gucci, Off-White and more for men, women and children.",
+ "Opened 2023 in the old River Island building",who=["m","w","k"],geo="Flannels, Lister Gate",ll=(52.951152,-1.148471))
+add("fashion","John Lewis","Victoria Centre, Milton Street, NG1 3QA",
+ "One of the big John Lewis department stores, which have closed in several smaller cities. Fashion for everyone including children, plus home, beauty and tech.",
+ "Good café upstairs",who=["m","w","k"],geo="John Lewis Nottingham",ll=(52.956066,-1.147674))
+add("fashion","Urban Outfitters","Victoria Centre, Milton Street, NG1 3QL",
+ "The big-city lifestyle chain: streetwear, its own vintage line, homewares, vinyl and gifts.",
+ "Check the Urban Renewal vintage rail",ta=False,who=["m","w"],geo="Urban Outfitters Nottingham",ll=(52.95536,-1.147363))
+add("fashion","Lucy & Yak","11 The Poultry, moving to 29 Bridlesmith Gate, NG1",
+ "The bright, sustainably made dungarees brand, mostly womenswear with lots of unisex pieces. It's moving in late 2026 to a bigger Bridlesmith Gate shop with its Re:Yak repair and pre-loved range.",
+ "Check which address is open when you visit",ta=False,who=["w","m"],geo="Lucy & Yak Nottingham",ll=(52.953082,-1.147583))
+add("fashion","Metro Fashion","Middle Pavement, NG1",
+ "A discount designer shop selling new, discontinued and pre-loved designer clothing for men, women and children at a fraction of retail price.",
+ "Stock changes constantly; check it's still trading",ta=False,who=["m","w","k"],geo="Middle Pavement Nottingham",ll=(52.9515,-1.14632))
+
+# ---------------- VINTAGE (clothes) ----------------
+add("vintage","Glass Onion","Bridlesmith Gate, NG1 2GQ",
+ "A big vintage clothing emporium from Yorkshire that opened in Nottingham in 2025 after success in Leeds and Sheffield: rails of graded vintage for men and women.",
+ "A good first stop on a Bridlesmith Gate vintage crawl",ta=False,who=["m","w"],geo="Glass Onion Nottingham",ll=(52.951678,-1.147133))
+add("vintage","101 Vintage","15 Bridlesmith Gate, NG1 2GR",
+ "A unisex vintage store focused on American 1990s and Y2K fashion, hand-picked and restocked daily, with around 800 items.",
+ "Check it's trading; it was on the street as of 2021",ta=False,who=["m","w"],geo="15 Bridlesmith Gate",ll=(52.95245,-1.14720))
+add("vintage","White Rose","26a Long Row, NG1 2DR",
+ "A Nottingham-grown recycled fashion chain with around eight local shops, selling pre-loved designer and branded clothing at bargain prices.",
+ "Another branch is in the Victoria Centre",ta=False,who=["m","w"],geo="White Rose WR7",ll=(52.953752,-1.149683))
+
+# ---------------- CHARITY SHOPS ----------------
+add("charity","Oxfam Books & Music","19 Market Street, NG1 6HX",
+ "Oxfam's specialist shop for second-hand books, vinyl, CDs, DVDs and sheet music, sorted by volunteers who know their stuff. The best charity shop in the centre for records and music.",
+ "Another Oxfam Books & Music is in West Bridgford",ta=False,geo="Oxfam Books & Music, Market Street",ll=(52.954423,-1.151512))
+add("charity","British Heart Foundation, Clumber Street","12–14 Clumber Street, NG1 3GA",
+ "A big central BHF shop with a vintage section, plus clothes for men, women and children, books, toys and homewares.",
+ "Open Sundays 11:00–17:00",ta=False,who=["m","w","k"],geo="British Heart Foundation, Clumber Street",ll=(52.954094,-1.147371))
+add("charity","BHF Furniture & Electrical, Bulwell","Main Street, Bulwell, NG6",
+ "The British Heart Foundation's furniture and electrical store: second-hand sofas, tables, wardrobes and tested home appliances and electricals at charity prices, with delivery available.",
+ "Drive or tram to Bulwell; weekday and Saturday hours",ta=False,far=True,drive="20 min",geo="British Heart Foundation Bulwell",ll=(53.00193,-1.196076))
+add("charity","Headway Charity Shop, Mapperley","23A Plains Road, Mapperley, NG3",
+ "A small brain-injury charity shop with a well-known vinyl section, where volunteers sort, grade and clean the records. A favourite of local crate-diggers.",
+ "Worth a detour for record collectors",ta=False,far=True,drive="15 min",geo="Headway Mapperley",ll=(52.984582,-1.121469))
+
+# ---------------- ANTIQUES FAIR (day trip) ----------------
+add("trips","Newark International Antiques & Collectors Fair","Newark Showground, Lincoln Road, NG24 2NY",
+ "One of Europe's biggest antiques fairs: thousands of stalls across the Newark showground several times a year. There's also a smaller one-day 'Runway Monday' fair. The town of Newark has its own antiques centres and a castle too.",
+ "2026: Runway Monday 23 Nov; next main fair 10–11 Dec (check)",far=True,drive="35 min",geo="Newark Showground",ll=(53.098808,-0.767005))

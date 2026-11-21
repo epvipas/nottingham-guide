@@ -119,6 +119,7 @@ nav.tabs button.on{color:var(--red)}
 <main>
  <section class="view" id="v-explore">
   <div class="chips" id="chips-see"></div>
+  <div class="price-row" id="who" hidden></div>
   <div class="sortbar"><span id="count-see"></span><select id="sort-see"><option value="walk">Closest to Market Square</option><option value="name">A–Z</option><option value="me">Closest to me</option></select></div>
   <div class="grid" id="list-see"></div>
  </section>
@@ -196,7 +197,9 @@ const isAndroid = /Android/i.test(navigator.userAgent);
 const standalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
 let saved = new Set(store.get('saved', []));
 let me = null;
-const state = { see: 'all', eat: 'all', price: 0, map: 'all', q: '' };
+const state = { see: 'all', eat: 'all', price: 0, map: 'all', q: '', who: '' };
+const WHO = { m: '👔 Men', w: '👗 Women', k: '🧒 Kids' };
+const WHO_CATS = ['fashion', 'vintage', 'charity'];
 
 function toast(t) { const el = $('#toast'); el.textContent = t; el.style.opacity = 1; clearTimeout(toast._t); toast._t = setTimeout(() => el.style.opacity = 0, 1800); }
 
@@ -239,7 +242,7 @@ function card(it) {
     <button class="heart" data-save="${it.id}" aria-label="Save">${saved.has(it.id) ? '❤️' : '🤍'}</button></div>
    <div class="body"><h3 style="color:${c.color}">${esc(it.name)}</h3>
     <div class="meta">${price}${it.drive ? `<span>🚗 ${it.drive} by car</span>` : `<span>🚶 ${it.walk} min from the Square</span>`}${dm && !it.drive ? `<span>📍 ${dm} min from you</span>` : ''}${it.far && !it.drive ? '<span>🚋 tram, bus or car</span>' : ''}</div>
-    <div class="addr">📍 ${esc(it.addr)}</div>
+    ${it.who && it.who.length ? `<div class="meta">${it.who.map(w => `<span>${WHO[w]}</span>`).join('')}</div>` : ''}<div class="addr">📍 ${esc(it.addr)}</div>
     <p class="text clamp">${esc(it.text)}</p><button class="more" data-more>Read more</button>
     ${it.tip ? `<div><span class="tip" style="background:${c.color}1F;color:${c.color}">★ ${esc(it.tip)}</span></div>` : ''}
     ${actions(it)}
@@ -271,12 +274,18 @@ function renderList(sec) {
   chips(sec, $(`#chips-${key}`), key);
   let list = ITEMS.filter(it => CATS[it.cat].sec === sec && (state[key] === 'all' || it.cat === state[key]) && matches(it));
   if (sec === 'eat' && state.price) list = list.filter(it => it.price === state.price);
+  if (sec === 'see') { renderWho(); if (state.who && WHO_CATS.includes(state.see)) list = list.filter(it => (it.who || []).includes(state.who)); }
   list = sorted(list, $(`#sort-${key}`).value);
   $(`#count-${key}`).textContent = `${list.length} place${list.length === 1 ? '' : 's'}`;
   $(`#list-${key}`).innerHTML = list.length ? list.map(card).join('') : '<div class="empty">Nothing matches. Try another filter.</div>';
 }
 function renderPrices() {
   $('#prices').innerHTML = [0,1,2,3,4].map(p => `<button class="chip ${state.price===p?'on':''}" style="${state.price===p?'background:var(--ink)':''}" data-price="${p}">${p ? '£'.repeat(p) : 'Any price'}</button>`).join('');
+}
+function renderWho() {
+  const el = $('#who'); const show = WHO_CATS.includes(state.see);
+  el.hidden = !show; if (!show) { return; }
+  el.innerHTML = [['', 'Everyone'], ...Object.entries(WHO)].map(([k, l]) => `<button class="chip ${state.who===k?'on':''}" style="${state.who===k?'background:var(--ink)':''}" data-who="${k}">${l}</button>`).join('');
 }
 function renderSaved() {
   const list = ITEMS.filter(it => saved.has(it.id));
@@ -412,6 +421,14 @@ function renderInfo() {
    <div class="day" style="background:#FDEFD6"><b>Food to take home:</b> ${refs(['The Cheese Shop', 'Delilah Fine Foods', 'Oriental Mart', 'Asiana Hypermarket', 'Radford Road world food trail', 'Victoria Centre Market'])}
     <p style="margin:8px 0 0;font-size:13px">Bring a cool bag in the car for the cheese.</p></div>
   </div>
+  <div class="sec"><h2>🛍️ Shopping routes</h2>
+   <div class="day" style="background:#FDE0F0"><b>Boutiques &amp; big names:</b> ${refs(['Gigi Bottega', 'Tutu Urban Boutique', 'Paul Smith, Willoughby House', 'Flannels', 'Lucy & Yak', 'John Lewis', 'Urban Outfitters'])}
+    <p style="margin:8px 0 0;font-size:13px">On the Clothes &amp; boutiques, Vintage and Charity shops lists, use the 👔 Men, 👗 Women and 🧒 Kids filters. Kids' options are mostly in the big stores.</p></div>
+   <div class="day" style="background:#EFE2F8"><b>Bridlesmith Gate vintage crawl:</b> ${refs(['Glass Onion', '101 Vintage', 'White Rose', 'Cow Vintage', 'Goose Gate vintage & Hockley shops'])}</div>
+   <div class="day" style="background:#D8F3EE"><b>Charity &amp; second-hand treasure:</b> ${refs(['Oxfam Books & Music', 'British Heart Foundation, Clumber Street', 'BHF Furniture & Electrical, Bulwell', 'Headway Charity Shop, Mapperley', 'Hopkinsons Vintage & Antiques', 'Newark International Antiques & Collectors Fair'])}
+    <p style="margin:8px 0 0;font-size:13px">Nottingham has been named the UK's charity-shop capital, with around 100 within five miles of the centre. For furniture and electricals, go to the BHF store in Bulwell. Oxfam Books &amp; Music and Headway are best for records. I found no charity shop in the city that specialises in cameras or instruments, so for those try Wex's used counter and Abbey Road Music.</p></div>
+   <div class="day" style="background:#FDEFD6"><b>Art to buy:</b> ${refs(['George Thornton Art', 'Fletcher Gate Fine Art Gallery', 'Lauren Paige Art Gallery & Writing Bureau', 'Castle Fine Art', 'Aura Fine Art', 'The Harley Gallery, Welbeck'])}</div>
+  </div>
   <div class="sec"><h2>🚗 Day trips out of the city</h2>
    <p>Driving times are from central Nottingham, and most of these are an easy detour on your way in or home.</p>
    <div class="day" style="background:#D8F3EE"><b>Forest, abbeys &amp; caves (north):</b> ${refs(['Newstead Abbey', 'Sherwood Forest & the Major Oak', 'Clumber Park', 'Creswell Crags', 'Hardwick Hall'])}</div>
@@ -449,7 +466,7 @@ function renderInfo() {
    <li>Book Friday and Saturday dinners ahead, and the Michelin restaurants weeks ahead.</li></ul></div>
   <div class="sec"><h2>⚠️ Before you go</h2><ul>
    <li>Independent places come and go quickly. Check each venue's own site or socials the day before.</li>
-   <li><b>Recently closed:</b> The Larder on Goosegate, Boilermaker (the site is now Boca Lima), Petit Paris, Chino Latino and Long Row Social have all closed, so they're not in the guide.</li>
+   <li><b>Recently closed:</b> The Larder on Goosegate, Boilermaker (the site is now Boca Lima), Petit Paris, Chino Latino, Long Row Social, Stick &amp; Ribbon (now online only), Mint Duck and the Sue Ryder vintage shop on Goose Gate have all closed, so they're not in the guide.</li>
    <li>Listings conflicted for <b>Annie's Burger Shack</b> and <b>Cow Vintage</b>. Check they're trading before you plan around them.</li>
    <li>Sneinton Market's hall is due for refurbishment from autumn 2026, so some units may be shut.</li>
    <li>Map pins come from OpenStreetMap and are close but not exact; use the Directions buttons for door-to-door routes.</li>
@@ -478,10 +495,11 @@ function gotoItem(id) {
 }
 
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-v],[data-chip],[data-save],[data-more],[data-showmap],[data-goto],[data-price]');
+  const t = e.target.closest('[data-v],[data-chip],[data-save],[data-more],[data-showmap],[data-goto],[data-price],[data-who]');
   if (!t) return;
   if (t.matches('nav.tabs button')) return go(t.dataset.v);
   if (t.dataset.chip) { state[t.dataset.chip] = t.dataset.v; if (t.dataset.chip === 'map') renderMarkers(); else renderList(t.dataset.chip === 'see' ? 'see' : 'eat'); return; }
+  if (t.dataset.who !== undefined) { state.who = t.dataset.who; renderList('see'); return; }
   if (t.dataset.price !== undefined) { state.price = +t.dataset.price; renderPrices(); renderList('eat'); return; }
   if (t.dataset.save) { const id = t.dataset.save; saved.has(id) ? saved.delete(id) : saved.add(id); store.set('saved', [...saved]);
     document.querySelectorAll(`[data-save="${id}"]`).forEach(b => b.textContent = saved.has(id) ? '❤️' : '🤍');
