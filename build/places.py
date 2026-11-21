@@ -81,8 +81,8 @@ add("galleries","Primary","33 Seely Road, Lenton, NG7 1NU",
 add("galleries","Bonington Gallery","Bonington Building, Dryden Street, NG1 4FZ",
  "Nottingham Trent University's free gallery in its brutalist art-school building. Thoughtful, often experimental contemporary exhibitions and rarely crowded.",
  "Term-time programme",ta=False,geo="Bonington Building, Dryden Street, Nottingham")
-add("galleries","Fletcher Gate Fine Art","Fletcher Gate, Lace Market, NG1 2FZ",
- "An independent gallery focused on original fine art for sale, from local and national artists, in the Lace Market. A relaxed place to browse paintings you could actually take home.",
+add("galleries","Fletcher Gate Fine Art Gallery","18 Fletcher Gate, Lace Market, NG1 2FZ",
+ "Also known as the Fletcher Gate Art Gallery. An independent gallery for original fine art for sale, from local and national artists, in the Lace Market. A relaxed place to browse paintings you could actually take home.",
  "Thu–Sun 11:00–16:00",ta=False,geo="Fletcher Gate, Nottingham",ll=(52.9530,-1.1458))
 add("galleries","Nottingham Society of Artists","61 Friar Lane, NG1 6DA",
  "Founded in 1880, the society runs its own gallery behind an unassuming door on Friar Lane. Rolling exhibitions of members' work, often very affordable.",
