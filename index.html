@@ -238,7 +238,7 @@ function card(it) {
    <div class="pic"><img loading="lazy" src="${it.img}" alt=""><span class="badge" style="background:${c.color}">${c.emoji} ${esc(c.title)}</span>
     <button class="heart" data-save="${it.id}" aria-label="Save">${saved.has(it.id) ? '❤️' : '🤍'}</button></div>
    <div class="body"><h3 style="color:${c.color}">${esc(it.name)}</h3>
-    <div class="meta">${price}<span>🚶 ${it.walk} min from the Square</span>${dm ? `<span>📍 ${dm} min from you</span>` : ''}${it.far ? '<span>🚋 tram, bus or car</span>' : ''}</div>
+    <div class="meta">${price}${it.drive ? `<span>🚗 ${it.drive} by car</span>` : `<span>🚶 ${it.walk} min from the Square</span>`}${dm && !it.drive ? `<span>📍 ${dm} min from you</span>` : ''}${it.far && !it.drive ? '<span>🚋 tram, bus or car</span>' : ''}</div>
     <div class="addr">📍 ${esc(it.addr)}</div>
     <p class="text clamp">${esc(it.text)}</p><button class="more" data-more>Read more</button>
     ${it.tip ? `<div><span class="tip" style="background:${c.color}1F;color:${c.color}">★ ${esc(it.tip)}</span></div>` : ''}
@@ -330,7 +330,7 @@ function renderMarkers() {
   ITEMS.filter(it => (state.map === 'all' || it.cat === state.map) && matches(it)).forEach(it => {
     const c = CATS[it.cat];
     const ic = L.divIcon({ className: '', html: `<div class="pin" style="background:${c.color}">${c.emoji}</div>`, iconSize: [28, 28], iconAnchor: [14, 14], popupAnchor: [0, -12] });
-    const m = L.marker([it.lat, it.lon], { icon: ic }).bindPopup(`<div class="pop"><h4 style="color:${c.color}">${esc(it.name)}</h4><div class="addr">${it.price ? '<b>' + '£'.repeat(it.price) + '</b> · ' : ''}🚶 ${it.walk} min from the Square<br>${esc(it.addr)}</div>
+    const m = L.marker([it.lat, it.lon], { icon: ic }).bindPopup(`<div class="pop"><h4 style="color:${c.color}">${esc(it.name)}</h4><div class="addr">${it.price ? '<b>' + '£'.repeat(it.price) + '</b> · ' : ''}${it.drive ? '🚗 ' + it.drive + ' by car' : '🚶 ' + it.walk + ' min from the Square'}<br>${esc(it.addr)}</div>
       <button class="linkchip" data-goto="${it.id}">Read more ›</button>${actions(it, true)}</div>`, { maxWidth: 290 });
     m.addTo(layer); markers[it.id] = m;
   });
@@ -411,6 +411,18 @@ function renderInfo() {
     <p style="margin:8px 0 0;font-size:13px">Wex and Hopkinsons are both by the station, so they're a good pair before the train or tram home.</p></div>
    <div class="day" style="background:#FDEFD6"><b>Food to take home:</b> ${refs(['The Cheese Shop', 'Delilah Fine Foods', 'Oriental Mart', 'Asiana Hypermarket', 'Radford Road world food trail', 'Victoria Centre Market'])}
     <p style="margin:8px 0 0;font-size:13px">Bring a cool bag in the car for the cheese.</p></div>
+  </div>
+  <div class="sec"><h2>🚗 Day trips out of the city</h2>
+   <p>Driving times are from central Nottingham, and most of these are an easy detour on your way in or home.</p>
+   <div class="day" style="background:#D8F3EE"><b>Forest, abbeys &amp; caves (north):</b> ${refs(['Newstead Abbey', 'Sherwood Forest & the Major Oak', 'Clumber Park', 'Creswell Crags', 'Hardwick Hall'])}</div>
+   <div class="day" style="background:#FDEFD6"><b>Minster town (east):</b> ${refs(['Southwell'])}</div>
+   <div class="day" style="background:#FDE3DF"><b>Stilton &amp; a castle (south-east):</b> ${refs(['Colston Bassett Dairy', 'Belvoir Castle'])}
+    <p style="margin:8px 0 0;font-size:13px">The dairy shop shuts at lunchtime on Saturdays, so go there first.</p></div>
+   <div class="day" style="background:#DDEBFA"><b>Close by (south &amp; west):</b> ${refs(['Ruddington', 'Attenborough Nature Reserve', 'Wollaton Hall & Deer Park'])}</div>
+  </div>
+  <div class="sec"><h2>🎸 Nights out &amp; fresh air</h2>
+   <div class="day" style="background:#EFE2F8"><b>Gigs, comedy &amp; theatre:</b> ${refs(['Rock City', 'Rescue Rooms', 'The Bodega', 'Metronome & the Glee Club', 'Nottingham Playhouse', 'Theatre Royal & Royal Concert Hall', 'Ye Olde Salutation Inn'])}</div>
+   <div class="day" style="background:#D8F3EE"><b>Walks &amp; green space:</b> ${refs(['Nottingham Canal towpath', 'Victoria Embankment', 'Highfields Park', 'The Arboretum', 'Colwick Country Park', 'The Forest Recreation Ground'])}</div>
   </div>
   <div class="sec"><h2>🎄 What's on this winter</h2><ul>
    <li><b>Winter Wonderland</b> in Old Market Square, 12 November to 31 December 2026: Christmas market stalls until 24 December, plus an ice rink, Observation Wheel and Ice Bar. Entry is free and the rides are ticketed.</li>

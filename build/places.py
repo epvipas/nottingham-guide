@@ -8,17 +8,20 @@ CATS = {
  "gear":     {"sec":"see","title":"Cameras, music & tech","emoji":"📷","color":"#0E7490"},
  "food":     {"sec":"see","title":"Food shops & world grocers","emoji":"🧀","color":"#B45309"},
  "fun":      {"sec":"see","title":"Escape rooms & things to do","emoji":"🧩","color":"#DB2777"},
+ "parks":    {"sec":"see","title":"Parks & walks","emoji":"🌳","color":"#2F855A"},
+ "trips":    {"sec":"see","title":"Day trips","emoji":"🚗","color":"#1D4ED8"},
  "cafes":    {"sec":"eat","title":"Cafés & coffee","emoji":"☕","color":"#0F9D8A"},
  "cheap":    {"sec":"eat","title":"Cheap eats & street food","emoji":"🌮","color":"#E8483B"},
  "mid":      {"sec":"eat","title":"Mid-range","emoji":"🍽️","color":"#E8930C"},
  "splurge":  {"sec":"eat","title":"Splurge & Michelin","emoji":"⭐","color":"#8E44C9"},
  "pubs":     {"sec":"eat","title":"Historic & real-ale pubs","emoji":"🍺","color":"#A0522D"},
  "bars":     {"sec":"eat","title":"Cocktails & craft bars","emoji":"🍸","color":"#1877D0"},
+ "music":    {"sec":"eat","title":"Live music & comedy","emoji":"🎸","color":"#7C3AED"},
 }
 
 P = []
-def add(cat, name, addr, text, tip, price=0, web="", ta=True, far=False, geo=None, ll=None):
-    P.append(dict(cat=cat, name=name, addr=addr, text=text, tip=tip, price=price, web=web, ta=ta, far=far,
+def add(cat, name, addr, text, tip, price=0, web="", ta=True, far=False, geo=None, ll=None, drive=""):
+    P.append(dict(cat=cat, name=name, addr=addr, text=text, tip=tip, price=price, web=web, ta=ta, far=far, drive=drive,
                   geo=geo or f"{name}, Nottingham", ll=ll))
 
 # ---------------- SIGHTS & ODDITIES ----------------
@@ -318,3 +321,69 @@ add("fun","Ludorati Café","Maid Marian Way, NG1",
 add("fun","The Dice Cup","70 Mansfield Road, NG1 3GY",
  "Nottingham's first board-game café and a proper games shop: dice, board games, tabletop miniatures and comics, with vegan-friendly food.",
  "Browse the shop even if you're not staying to play",geo="The Dice Cup, Mansfield Road, Nottingham",ll=(52.9580,-1.1485))
+
+# ---------------- LIVE MUSIC & COMEDY ----------------
+add("music","Rock City","8 Talbot Street, NG1 5GG",
+ "A legendary independent rock venue since 1980, holding about 2,000 people. Just about every big guitar band of the last 40 years has played here, and its club nights are a Nottingham rite of passage.",
+ "Check listings and book early for touring bands",web="https://www.rock-city.co.uk",geo="Rock City, Talbot Street, Nottingham")
+add("music","Rescue Rooms","Masonic Place, off Goldsmith Street, NG1 5JT",
+ "Rock City's 480-capacity little sibling next door, where you catch bands on the way up. It has a bar and kitchen, so it works for a drink even without a gig.",
+ "Tickets often around £15–25",web="https://www.rescuerooms.com",geo="Rescue Rooms, Nottingham")
+add("music","Metronome & the Glee Club","Huntingdon Street, NG1 1AP",
+ "Nottingham Trent University's music and arts venue, now home to the Glee Club's comedy nights and Just the Tonic, plus gigs and club nights.",
+ "Comedy weekends sell out; book ahead",geo="Metronome, Huntingdon Street, Nottingham",ll=(52.9567,-1.1432))
+add("music","Nottingham Playhouse","Wellington Circus, NG1 5AF",
+ "The city's producing theatre, with drama, its famous panto and touring work. Outside stands Anish Kapoor's Sky Mirror, a huge polished steel dish reflecting the sky, which is worth a look even if you're not seeing a show.",
+ "The Sky Mirror is free to see any time",web="https://www.nottinghamplayhouse.co.uk",geo="Nottingham Playhouse, Wellington Circus")
+add("pubs","Ye Olde Salutation Inn","Hounds Gate, NG1 7AA",
+ "A 13th-century-founded pub with caves beneath it, and a long-standing rock and live-music haunt. A third contender in the 'oldest pub in Nottingham' argument.",
+ "Ask about seeing the caves",price=1,geo="Ye Olde Salutation Inn, Nottingham")
+
+# ---------------- PARKS & WALKS ----------------
+add("parks","Victoria Embankment","Victoria Embankment, NG2",
+ "A broad tree-lined promenade along the River Trent, with memorial gardens, rowing clubs and views of Trent Bridge, the cricket ground and the City Ground. Flat and easy, and best on a sunny afternoon.",
+ "Tram to Meadows Embankment",ta=True,geo="Victoria Embankment Memorial Gardens, Nottingham")
+add("parks","Nottingham Canal towpath","Castle Wharf, Canal Street, NG1 7EH",
+ "Join the canal by the Canal House and walk west past old warehouses, narrowboats and Castle Marina. It's flat all the way, and you can carry on for an hour or more towards Beeston.",
+ "Start or finish with a drink at the Canal House",ta=False,geo="Castle Wharf, Nottingham",ll=(52.9479,-1.1499))
+add("parks","Highfields Park","University Boulevard, NG7 2PS",
+ "A lakeside Victorian park beside the University of Nottingham, with a boating lake, a waterfall, a café and Lakeside Arts. Pair it with a walk up through the campus to the Trent Building.",
+ "Tram to University of Nottingham",far=True,geo="Highfields Park, Nottingham")
+add("parks","The Forest Recreation Ground","Mansfield Road, NG7",
+ "A huge open green on the hill north of the centre, home to Goose Fair every October and a tram Park & Ride. Big skies and views back over the city.",
+ "The Forest tram stop is right there",ta=False,geo="Forest Recreation Ground, Nottingham")
+add("parks","Colwick Country Park","Mile End Road, Colwick, NG4 2DW",
+ "Lakes, woods and riverside paths on the east side of the city, with a marina and plenty of birdlife. Easy circular walks.",
+ "About 10 minutes' drive; paid parking",far=True,geo="Colwick Country Park")
+add("parks","Attenborough Nature Reserve","Barton Lane, Attenborough, NG9 6DY",
+ "Flooded gravel pits turned into a wildlife haven beside the Trent, opened by Sir David Attenborough. A floating nature centre and café, kingfishers, herons and easy level paths.",
+ "Train to Attenborough station, or 20 minutes by car",far=True,geo="Attenborough Nature Centre")
+
+# ---------------- DAY TRIPS ----------------
+add("trips","Sherwood Forest & the Major Oak","Edwinstowe, NG21",
+ "The heart of the old royal forest, with ancient oaks and woodland trails around the Major Oak, a giant tree held up by props and thought to be 800–1,000 years old. The visitor centre is in Edwinstowe, where legend says Robin Hood married Marian.",
+ "Go early on weekends; Robin Hood Festival in August",far=True,drive="40 min",geo="Major Oak, Sherwood Forest")
+add("trips","Newstead Abbey","Ravenshead, NG15 8NA",
+ "Lord Byron's ancestral home: the soaring west front of a medieval priory ruin attached to a country house, set in lakes, gardens and parkland with peacocks.",
+ "Gardens daily · house weekends & school holidays 11–4",web="https://newsteadabbey.org.uk",far=True,drive="25 min",geo="Newstead Abbey")
+add("trips","Southwell","Southwell, NG25",
+ "A small Georgian minster town. The Norman Minster's chapter house has the famous 'Leaves of Southwell' stone carvings, and the National Trust Workhouse shows Victorian poor-relief. There are good independent shops and tearooms, and the Bramley apple started here.",
+ "Pair the Minster and Workhouse with lunch in town",far=True,drive="35 min",geo="Southwell Minster")
+add("trips","Creswell Crags","Crags Road, Welbeck, S80 3LH",
+ "A limestone gorge of caves holding the UK's only known Ice Age cave art, plus hundreds of 'witches' marks' scratched to ward off evil. Guided cave tours, a lakeside walk and a visitor centre.",
+ "Cave tours are guided; no under-5s on tours",far=True,drive="45 min",geo="Creswell Crags")
+add("trips","Clumber Park","Worksop, S80 3BX",
+ "National Trust parkland with a big serpentine lake, a Gothic chapel, one of the longest double avenues of lime trees in Europe and a beautiful walled kitchen garden. Bikes to hire.",
+ "Great for a long walk or a bike ride",far=True,drive="40 min",geo="Clumber Park")
+add("trips","Hardwick Hall","Doe Lea, Chesterfield, S44 5QJ",
+ "Bess of Hardwick's dazzling Elizabethan house, famous as 'more glass than wall', with huge tapestries and her initials on the rooftop. The ruined Old Hall stands next door.",
+ "Just off M1 junction 29",far=True,drive="35 min",geo="Hardwick Hall")
+add("trips","Ruddington","Ruddington, NG11",
+ "A village with the Framework Knitters Museum (working Victorian knitting frames in original workshops), the Great Central Railway heritage steam and diesel line, and Debbie Bryan's second shop.",
+ "Check the railway's running days",far=True,drive="15 min",geo="Framework Knitters Museum, Ruddington")
+add("trips","Colston Bassett Dairy","Harby Lane, Colston Bassett, NG12",
+ "One of only a handful of dairies allowed to make Stilton, still making it by hand. Its small shop sells Stilton and Shropshire Blue straight from the source, in Vale of Belvoir countryside.",
+ "Shop hours are short: weekdays & Saturday mornings",far=True,drive="25 min",geo="Colston Bassett Dairy")
+add("trips","Belvoir Castle","Grantham, NG32 1PE",
+ "The Duke of Rutland's romantic hilltop castle overlooking the Vale of Belvoir, with lavish state rooms and landscaped gardens. Pair it with the Colston Bassett dairy shop on the way.",
+ "Opening is seasonal; check dates before you go",far=True,drive="40 min",geo="Belvoir Castle")
