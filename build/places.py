@@ -5,6 +5,9 @@ CATS = {
  "shops":    {"sec":"see","title":"Indie shops & makers","emoji":"🛍️","color":"#E8930C"},
  "records":  {"sec":"see","title":"Records, books & comics","emoji":"📀","color":"#1877D0"},
  "vintage":  {"sec":"see","title":"Vintage & antiques","emoji":"🧥","color":"#0F766E"},
+ "gear":     {"sec":"see","title":"Cameras, music & tech","emoji":"📷","color":"#0E7490"},
+ "food":     {"sec":"see","title":"Food shops & world grocers","emoji":"🧀","color":"#B45309"},
+ "fun":      {"sec":"see","title":"Escape rooms & things to do","emoji":"🧩","color":"#DB2777"},
  "cafes":    {"sec":"eat","title":"Cafés & coffee","emoji":"☕","color":"#0F9D8A"},
  "cheap":    {"sec":"eat","title":"Cheap eats & street food","emoji":"🌮","color":"#E8483B"},
  "mid":      {"sec":"eat","title":"Mid-range","emoji":"🍽️","color":"#E8930C"},
@@ -261,3 +264,57 @@ add("bars","Broadway Cinema bar","14–18 Broad Street, NG1 3AL",
 add("bars","The Bodega","23 Pelham Street, NG1 2ED",
  "A pub downstairs and a small gig venue upstairs, where plenty of bands played early in their careers. A Hockley staple for a pint and a gig.",
  "Check the gig calendar",price=1,geo="The Bodega, Pelham Street, Nottingham",ll=(52.9538,-1.1462))
+
+# ---------------- CAMERAS, MUSIC & TECH ----------------
+add("gear","Wex Photo Video","103–107 Carrington Street, NG1 7FE",
+ "A big camera shop near the station with a proper used counter: second-hand lenses, bodies, flashes and accessories, all with a 12-month warranty. Stock changes daily and isn't all online, so it's worth a browse in person. They'll also buy or part-exchange your old kit.",
+ "Used stock is first come, first served",web="https://www.wexphotovideo.com/about-us/store-finder/nottingham/",geo="Wex Photo Video, Carrington Street, Nottingham",ll=(52.9490,-1.1459))
+add("gear","Abbey Road Music (formerly PMT)","Huntingdon Street, NG1",
+ "The city's big guitar, bass, drum and keyboard store. It had a large second-hand guitar wall under its former PMT name, and late in 2025 it changed hands to become Abbey Road Music.",
+ "Name changed recently; check what's on the used wall",ta=False,geo="PMT Nottingham, Huntingdon Street",ll=(52.9575,-1.1455))
+add("gear","Drum & Guitar","Cranbrook House, Cranbrook Street, NG1 1ES",
+ "Calls itself the largest independent music store in the East Midlands. Especially strong on drums, cymbals and percussion, with guitars and amps too, and staff who know their stuff.",
+ "Ask about part-exchange and any used stock",ta=False,geo="Drum and Guitar, Cranbrook Street, Nottingham",ll=(52.9536,-1.1418))
+add("gear","Nottingham City Guitars","Lace Market, NG1",
+ "A luthier's workshop building hand-made electric guitars, with some finished shop stock for sale. Guitars start from around £1,500. A treat for a serious player.",
+ "Open by appointment only; contact them first",ta=False,geo="Lace Market, Nottingham",ll=(52.9523,-1.1440))
+add("gear","CeX, Victoria Centre","Unit 310, Upper Mall, Victoria Centre, NG1 3QN",
+ "The buy-sell-exchange chain for second-hand phones, laptops, tablets, cameras, consoles and games, everything graded with a warranty. Handy for a cheap spare phone or a retro console.",
+ "A second branch is on Exchange Walk",ta=False,geo="Victoria Centre, Nottingham",ll=(52.9568,-1.1478))
+add("gear","CeX, Exchange Walk","2 Exchange Walk, NG1 2NX",
+ "The smaller central CeX, just off the Old Market Square, for second-hand tech, games and phones.",
+ "Compare stock with the Victoria Centre branch",ta=False,geo="Exchange Walk, Nottingham",ll=(52.9524,-1.1497))
+
+# ---------------- FOOD SHOPS & WORLD GROCERS ----------------
+add("food","The Cheese Shop","4 Flying Horse Walk, NG1 2HN",
+ "Run by brothers Rob and Webb Freckingham for more than 15 years: a counter of British and continental cheeses, charcuterie, chutneys and crackers, plus the only café in Flying Horse Walk. A past World Cheese Awards placer.",
+ "Ask for Colston Bassett or Cropwell Bishop Stilton, both made in Notts",geo="The Cheese Shop, Flying Horse Walk, Nottingham",ll=(52.9528,-1.1483))
+add("food","Oriental Mart","1A Goldsmith Street, NG1 5JS",
+ "Nottingham's best-known East Asian supermarket, with more than 3,000 Chinese, Japanese, Korean, Thai and Vietnamese products: fresh, frozen and dried. Its Umai street-food café serves bao, ramen and Hong Kong snacks.",
+ "Good for snacks you won't find anywhere else",web="https://www.orientalmart.co.uk",geo="Oriental Mart, Goldsmith Street, Nottingham",ll=(52.9567,-1.1540))
+add("food","Asiana Hypermarket","Woodborough Road, NG3",
+ "A huge Oriental supermarket on the edge of the centre, stocking foods from China, Hong Kong, Korea, Thailand, Japan, Vietnam and the Philippines, with big fresh and frozen sections.",
+ "Easiest by car; it's uphill from Victoria Centre",ta=False,geo="Asiana Hypermarket, Woodborough Road, Nottingham",ll=(52.9620,-1.1420))
+add("food","Radford Road world food trail","Radford Road, Hyson Green, NG7",
+ "Half a mile of international grocers and bakeries where a dozen languages are spoken: South Asian and Middle Eastern spices at Medina Continental (79–83 Radford Road), exotic fruit and veg at Green Oranges, Polish bakes at Olawa Bakery and Eastern European goods at the Tani Shop. Wiloks nearby does African and Caribbean foods.",
+ "Tram to Hyson Green Market; pair with New Art Exchange",ta=False,far=True,geo="Radford Road, Hyson Green, Nottingham",ll=(52.9668,-1.1702))
+
+# ---------------- ESCAPE ROOMS & THINGS TO DO ----------------
+add("fun","Cave Escape","63 Mansfield Road, NG1 3FN",
+ "Escape rooms built into a real sandstone cave system under Mansfield Road, which could only be in Nottingham. Three rooms for up to 18 players at once.",
+ "Book ahead, especially at weekends",geo="Cave Escape, Mansfield Road, Nottingham",ll=(52.9588,-1.1489))
+add("fun","Escapologic","2 Stanford Street, NG1 7AQ",
+ "The city's biggest escape-room venue, with a range of themed rooms including 18+ horror games in the autumn.",
+ "20% off a second room booked on the day · check hours",geo="Escapologic, Stanford Street, Nottingham",ll=(52.9512,-1.1512))
+add("fun","Break Escape","9a Market Street & 107 Upper Parliament Street, NG1",
+ "A family-friendly escape-room company with two city-centre sites and a Robin Hood-themed room, plus Christmas rooms in December.",
+ "Cheaper tickets for children",geo="Break Escape, Market Street, Nottingham",ll=(52.9541,-1.1509))
+add("fun","The Original Nottingham Ghost Walk","Starts at Ye Olde Trip to Jerusalem, NG1 6AD",
+ "A costumed storyteller leads you round the Castle Quarter after dark, telling the city's ghost stories over about half a mile. Runs on Saturday evenings from January to the first Saturday in December.",
+ "Saturdays 7pm · about £9 · just turn up",geo="Ye Olde Trip to Jerusalem, Nottingham",ll=(52.94925,-1.15255))
+add("fun","Ludorati Café","Maid Marian Way, NG1",
+ "A board-game café with over 750 games, from old favourites to new ones, plus coffee, food and staff who'll teach you the rules. Great on a rainy afternoon.",
+ "Book a table at weekends",geo="Ludorati, Maid Marian Way, Nottingham",ll=(52.9520,-1.1530))
+add("fun","The Dice Cup","70 Mansfield Road, NG1 3GY",
+ "Nottingham's first board-game café and a proper games shop: dice, board games, tabletop miniatures and comics, with vegan-friendly food.",
+ "Browse the shop even if you're not staying to play",geo="The Dice Cup, Mansfield Road, Nottingham",ll=(52.9580,-1.1485))

@@ -15,7 +15,11 @@ OVR = {
  "Ibérico World Tapas": (52.95084, -1.14443), "Hart's Kitchen": (52.95147, -1.15662), "Fox & Grapes": (52.95367, -1.13771),
  "The Vat & Fiddle": (52.94570, -1.14833), "The Canal House": (52.94827, -1.14856), "Shio": (52.95450, -1.15254),
  "Derby Road antiques & vintage strip": (52.95450, -1.15900), "Robin Hood statue": (52.95060, -1.15200),
- "Rob's Records": (52.95480, -1.15160), "Hooten Street Project": (52.95520, -1.13700),
+ "Rob's Records": (52.95480, -1.15160),
+ "Wex Photo Video": (52.947804, -1.147325), "Drum & Guitar": (52.954089, -1.141337), "CeX, Victoria Centre": (52.95630, -1.14770),
+ "CeX, Exchange Walk": (52.952971, -1.148972), "The Cheese Shop": (52.952810, -1.148486), "Oriental Mart": (52.955294, -1.152352),
+ "Asiana Hypermarket": (52.962281, -1.146750), "Radford Road world food trail": (52.964717, -1.170356), "Cave Escape": (52.959891, -1.150040),
+ "Escapologic": (52.950988, -1.149794), "Break Escape": (52.954093, -1.151414), "The Dice Cup": (52.959179, -1.149180), "Hooten Street Project": (52.95520, -1.13700),
 }
 geo = json.load(open(os.path.join(os.path.dirname(__file__), "geo.json")))
 
@@ -166,10 +170,57 @@ def svg_bars(r, gid):
     s += f'<rect x="{cx-2}" y="140" width="4" height="40" fill="#fff"/><ellipse cx="{cx}" cy="182" rx="22" ry="5" fill="#fff"/><circle cx="{cx+28}" cy="88" r="9" fill="#7CB342"/>'
     return s
 
+def svg_gear(r, gid):
+    bg = r.choice(["#DDEBFA", "#E3F0E8", "#F3DDE6", "#FFF3B0"])
+    s = f'<rect width="400" height="250" fill="{bg}"/><rect y="185" width="400" height="65" fill="#5B6770"/><rect y="185" width="400" height="6" fill="#00000030"/>'
+    k = r.random()
+    # camera
+    s += '<rect x="40" y="105" width="130" height="80" rx="12" fill="#2B2D42"/><rect x="60" y="92" width="40" height="16" rx="4" fill="#2B2D42"/>'
+    s += '<circle cx="105" cy="145" r="30" fill="#555"/><circle cx="105" cy="145" r="20" fill="#1877D0"/><circle cx="98" cy="138" r="6" fill="#fff" opacity=".7"/>'
+    # lens
+    s += '<rect x="185" y="140" width="50" height="45" rx="6" fill="#333"/><rect x="185" y="150" width="50" height="6" fill="#E8483B"/>'
+    # guitar
+    c = r.choice(PAL["pop"])
+    s += f'<rect x="318" y="30" width="10" height="100" fill="#6B4226"/><rect x="312" y="20" width="22" height="22" rx="4" fill="#3B1F10"/>'
+    s += f'<ellipse cx="323" cy="150" rx="34" ry="30" fill="{c}"/><ellipse cx="323" cy="120" rx="24" ry="22" fill="{c}"/><circle cx="323" cy="140" r="9" fill="#2B2D42"/>'
+    # phone
+    s += '<rect x="252" y="120" width="34" height="62" rx="6" fill="#111"/><rect x="256" y="126" width="26" height="48" rx="3" fill="#2EC4B6"/>'
+    return s
+def svg_food_shop(r, gid):
+    bg = r.choice(["#FFF3B0", "#FDE3DF", "#D8F3EE", "#EFE2F8"])
+    s = f'<rect width="400" height="250" fill="{bg}"/>'
+    for y in (70, 140):
+        s += f'<rect x="20" y="{y}" width="360" height="8" fill="#8D6346"/>'
+        x = 30
+        while x < 360:
+            c = r.choice(PAL["pop"]); w = r.randint(24, 40); h = r.randint(28, 55)
+            if r.random() < .5: s += f'<rect x="{x}" y="{y-h}" width="{w}" height="{h}" rx="4" fill="{c}"/><rect x="{x}" y="{y-h+8}" width="{w}" height="10" fill="#fff" opacity=".6"/>'
+            else: s += f'<rect x="{x+w/2-5}" y="{y-h}" width="10" height="10" fill="{c}"/><rect x="{x}" y="{y-h+8}" width="{w}" height="{h-8}" rx="8" fill="{c}" opacity=".85"/>'
+            x += w + r.randint(4, 10)
+    s += '<rect y="185" width="400" height="65" fill="#A0522D"/>'
+    cx = r.randint(110, 290)
+    s += f'<path d="M{cx-70} 215 L{cx+70} 215 L{cx+40} 175 L{cx-40} 175Z" fill="#FFD23F"/><path d="M{cx-70} 215 L{cx-40} 175 L{cx-40} 200Z" fill="#E9B500"/>'
+    s += ''.join(f'<circle cx="{cx+r.randint(-30,40)}" cy="{r.randint(182,208)}" r="{r.randint(3,6)}" fill="#E9B500"/>' for _ in range(5))
+    return s
+def svg_fun(r, gid):
+    bg = r.choice(["#2B1B2E", "#14213D", "#10302A"])
+    s = f'<rect width="400" height="250" fill="{bg}"/>'
+    s += '<path d="M120 250 L120 120 Q200 30 280 120 L280 250Z" fill="#D9B07A" opacity=".25"/>'
+    c = r.choice(["#FFD23F", "#FF4FA3", "#2EC4B6"])
+    # padlock
+    s += f'<path d="M170 110 L170 85 Q200 45 230 85 L230 110" stroke="{c}" stroke-width="12" fill="none"/><rect x="150" y="105" width="100" height="85" rx="12" fill="{c}"/>'
+    s += f'<circle cx="200" cy="140" r="11" fill="{bg}"/><rect x="195" y="145" width="10" height="24" fill="{bg}"/>'
+    # dice and puzzle pieces
+    s += '<rect x="290" y="160" width="46" height="46" rx="8" fill="#fff" transform="rotate(12 313 183)"/>'
+    s += ''.join(f'<circle cx="{x}" cy="{y}" r="4" fill="#2B2D42"/>' for x, y in [(303,172),(322,192),(313,182)])
+    s += f'<path d="M50 170 h30 a8 8 0 1 1 14 0 h22 v30 a8 8 0 1 0 0 14 v20 h-66z" fill="{r.choice(PAL["pop"])}"/>'
+    s += ''.join(f'<circle cx="{r.randint(10,390)}" cy="{r.randint(10,90)}" r="1.5" fill="#fff" opacity=".6"/>' for _ in range(14))
+    return s
+
 GEN = {"sights": svg_sights, "galleries": svg_galleries, "shops": svg_shops, "records": svg_records, "vintage": svg_vintage,
        "cafes": lambda r, g: svg_food(r, g, "cafes"), "cheap": lambda r, g: svg_food(r, g, "cheap"),
        "mid": lambda r, g: svg_food(r, g, "mid"), "splurge": lambda r, g: svg_food(r, g, "splurge"),
-       "pubs": svg_pubs, "bars": svg_bars}
+       "pubs": svg_pubs, "bars": svg_bars, "gear": svg_gear, "food": svg_food_shop, "fun": svg_fun}
 def wrap(body, vb="0 0 400 250"):
     return f'<svg viewBox="{vb}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">{body}</svg>'
 
