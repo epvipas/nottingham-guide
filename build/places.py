@@ -27,9 +27,9 @@ def add(cat, name, addr, text, tip, price=0, web="", ta=True, far=False, geo=Non
                   geo=geo or f"{name}, Nottingham", ll=ll))
 
 # ---------------- SIGHTS & ODDITIES ----------------
-add("sights","City of Caves","Upper Level, Broadmarsh, NG1 7LS",
+add("sights","City of Caves","Garner's Hill steps, Sussex Street / Cliff Road, NG1 1HF",
  "Nottingham sits on soft sandstone riddled with more than 800 man-made caves. This guided tour takes you through medieval tannery pits, a WWII air-raid shelter and Victorian slum cellars right under the city centre. Tours run about every 30–45 minutes and take around an hour.",
- "Book a timed slot online at weekends",web="https://www.cityofcaves.com",ll=(52.9500,-1.1474),geo="City of Caves, Nottingham")
+ "Entrance at the foot of the Garner's Hill steps, by Nottingham Contemporary · now run by the National Justice Museum",web="https://nationaljusticemuseum.org.uk/cityofcaves",ll=(52.95045,-1.14520),geo="City of Caves, Nottingham")
 add("sights","National Justice Museum","Shire Hall, High Pavement, NG1 1HN",
  "A Victorian courthouse and county gaol in the Lace Market, where you can stand in the dock, see the cells and the execution yard, and hear the grim stories of people tried here. Actors in costume bring the courtroom to life on some days.",
  "Allow 2 hours; good on a rainy day",web="https://www.nationaljusticemuseum.org.uk",geo="National Justice Museum, High Pavement, Nottingham")
@@ -49,8 +49,8 @@ add("sights","Robin Hood statue","Castle Road, NG1 6AA",
  "The bronze outlaw by James Woodford, unveiled in 1952 below the Castle walls. His arrow has been stolen so many times it's a running joke. Every visitor gets the photo.",
  "Quick photo stop on the way to the Trip",geo="Robin Hood Statue, Castle Road, Nottingham")
 add("sights","Green's Windmill","Windmill Lane, Sneinton, NG2 4QB",
- "A working tower windmill in Sneinton, once owned by the mathematician George Green, whose work underpins modern physics. You can buy stoneground flour milled on site and learn about Green in the small science centre.",
- "Open limited days; check before you go",web="https://www.greensmill.org.uk",geo="Green's Windmill, Nottingham")
+ "A tower windmill in Sneinton, once owned by the mathematician George Green, whose work underpins modern physics. It has been under major repair, with the mill closed to visitors, but the small science centre tells Green's story.",
+ "Repairs were due to finish in November 2026; check before you go",web="https://www.greensmill.org.uk",geo="Green's Windmill, Nottingham")
 add("sights","The Arboretum","Waverley Street, NG7 4HF",
  "Nottingham's first public park, opened in 1852: a hilly Victorian garden with a pagoda, bandstand, aviary and Crimean War cannons. Quiet, free and a short walk north of the centre.",
  "Pair with Mansfield Road pubs",ta=True,geo="The Arboretum, Nottingham")
@@ -125,12 +125,12 @@ add("shops","Delilah Fine Foods","12 Victoria Street, NG1 2EX",
  "A deli in a grand old banking hall: marble counters, a mezzanine café and a huge cheese counter. Buy Nottinghamshire Stilton, charcuterie and wine to take home in the car.",
  "Ask for Colston Bassett Stilton, made in Notts",web="https://www.delilahfinefoods.co.uk",geo="Delilah Fine Foods, Victoria Street, Nottingham",ll=(52.9531,-1.1477))
 add("shops","Victoria Centre Market","Victoria Centre (upper level), NG1 3QN",
- "An old-school indoor market above the shopping centre: fishmongers, butchers, bric-a-brac, sewing supplies and cafés. Downstairs, don't miss Rowland Emett's whimsical water clock.",
- "Emett clock performs on the hour",ta=False,geo="Victoria Centre Market, Nottingham",ll=(52.9567,-1.1474))
+ "The city's old indoor market above the shopping centre. The council began closing it in 2023 and only a handful of traders remain, so go for nostalgia rather than a full market. Rowland Emett's whimsical water clock was removed in May 2026 for refurbishment.",
+ "Check what's still open before making a special trip",ta=False,geo="Victoria Centre Market, Nottingham",ll=(52.9567,-1.1474))
 
 # ---------------- RECORDS, BOOKS & COMICS ----------------
 add("records","Rough Trade Nottingham","5 Broad Street, Hockley, NG1 3AJ",
- "Two floors of new vinyl, books and zines, plus a café-bar and a small venue for in-store gigs. The anchor of Hockley's music scene.",
+ "New vinyl, books and zines on the ground floor, with a bar and a 150-capacity live room upstairs for in-store gigs. The anchor of Hockley's music scene.",
  "In-store sets are often free; check events",web="https://www.roughtrade.com",geo="Rough Trade, Broad Street, Nottingham",ll=(52.9540,-1.1440))
 add("records","Rob's Records","4–5 Hurts Yard, NG1 6JD",
  "A crate-digger's institution: crammed racks of second-hand vinyl across every genre, in the Hurts Yard alley.",
@@ -153,15 +153,15 @@ add("vintage","Cow Vintage","3 Carlton Street, Hockley, NG1 1NL",
  "A big vintage clothing store listed among the city's go-to second-hand fashion shops, with racks of denim, sportswear and retro jackets.",
  "Two floors, 1980s to early 2000s; check it's trading",ta=False,who=["m","w"],geo="Cow Vintage, Nottingham",ll=(52.9536,-1.1449))
 add("vintage","Goose Gate vintage & Hockley shops","Goose Gate, Hockley, NG1 1FF",
- "Goose Gate and Carlton Street are Hockley's main browsing streets: vintage clothes, skate and streetwear, plants, tattoo parlours and bars. Jesse Boot opened his first shop at 16 Goose Gate; look up for the original ironwork.",
+ "Goose Gate and Carlton Street are Hockley's main browsing streets: vintage clothes, skate and streetwear, plants, tattoo parlours and bars. Boots grew from the herbalist's shop John Boot opened on Goose Gate in 1849, and his son Jesse built his first big store at 16–20 Goose Gate in the 1880s. Look up for the original ironwork.",
  "Best late morning before the bars fill",ta=False,geo="Goose Gate, Nottingham",ll=(52.9534,-1.1430))
 
 # ---------------- CAFÉS ----------------
 add("cafes","200 Degrees, Flying Horse Walk","Flying Horse Walk, NG1 2HN",
  "The Nottingham-born roaster that went national. This branch sits in the old coaching-inn arcade, and beans are roasted in the city.",
  "Buy a bag of beans to take home",price=1,web="https://200degs.com",geo="200 Degrees Flying Horse Walk, Nottingham",ll=(52.9527,-1.1482))
-add("cafes","Doughnotts","Exchange Arcade, NG1 2DD",
- "Nottingham's own doughnut company, started here in 2015, with its city café in the Council House's Exchange Arcade. Big, inventive, sourdough doughnuts with vegan options.",
+add("cafes","Doughnotts","14 Cheapside, NG1 2HU",
+ "Nottingham's own doughnut company, started here in 2015, with its city café on Cheapside beside the Council House. Big, inventive, sourdough doughnuts with vegan options.",
  "Closed Mondays · get there before they sell out",price=1,geo="Doughnotts, Goose Gate, Nottingham",ll=(52.9535,-1.1431))
 add("cafes","The Pudding Pantry","Trinity Square, NG1 4AF",
  "Over-the-top pancake stacks, brunches and cakes. Exactly what it sounds like, and very popular.",
@@ -177,9 +177,6 @@ add("cafes","Malt Cross","16 St James's Street, NG1 6FG",
 add("cheap","Bustler Market","Sneinton Market Avenues, NG1 1DW",
  "A big street-food hall with permanent traders, bars and 500+ seats in Sneinton Market. Something for everyone and very sociable.",
  "Busiest and best Fri–Sat evenings",price=1,geo="Bustler Market, Sneinton, Nottingham",ll=(52.9542,-1.1389))
-add("cheap","Annie's Burger Shack","5 Broadway, Lace Market, NG1 1PR",
- "Enormous menu of American burgers, many with vegan versions, plus a great craft-beer fridge. A Lace Market institution.",
- "Check it's open: listings conflict",price=2,web="https://www.anniesburgershack.com",geo="Annie's Burger Shack, Broadway, Nottingham",ll=(52.9527,-1.1444))
 add("cheap","Shanghai Shanghai","15 Goose Gate, Hockley, NG1 1FE",
  "Proper numbing Sichuan cooking in a no-frills Hockley dining room. A local favourite for years.",
  "Share in a group; order the dry-fried green beans",price=2,geo="Shanghai Shanghai",ll=(52.95375,-1.14312))
@@ -197,11 +194,11 @@ add("mid","Ibérico World Tapas","The Shire Hall, High Pavement, NG1 1HN",
 add("mid","Bar Gigi","Flying Horse Walk, NG1 2HN",
  "A small Italian bar and kitchen in the Flying Horse Walk arcade, five years old in 2026. Aperitivo, pasta and a famously good burger.",
  "Casual lunch between shops",price=2,geo="Bar Gigi, Flying Horse Walk, Nottingham",ll=(52.9528,-1.1485))
-add("mid","Sexy Mamma Love Spaghetti","3 Heathcoat Street, Hockley, NG1 3AA",
+add("mid","Sexy Mamma Love Spaghetti","3 Heathcoat Street, Hockley, NG1 3AF",
  "The name's a joke but the pasta isn't. A tiny, cosy, family-run trattoria in Hockley with fresh pasta.",
- "Tiny room; book even midweek",price=2,geo="Sexy Mamma Love Spaghetti, Nottingham",ll=(52.9542,-1.1437))
+ "No bookings: walk in and expect a short wait",price=2,geo="Sexy Mamma Love Spaghetti, Nottingham",ll=(52.9542,-1.1437))
 add("mid","Shio","Six Richmond House, Hurts Yard, NG1 6JD",
- "One of 2026's notable new openings, in the Hurts Yard alley of independents.",
+ "A small, well-reviewed Japanese restaurant hidden in Six Richmond House in the Hurts Yard alley of independents.",
  "New places change fast; check menu and hours",price=2,ta=False,geo="Six Richmond House, Hurts Yard, Nottingham",ll=(52.9547,-1.1514))
 add("mid","Café Roya","130 Wollaton Road, Beeston, NG9 2PE",
  "A much-loved vegetarian and vegan restaurant in Beeston with Persian-influenced cooking. Worth the tram ride.",
@@ -226,13 +223,13 @@ add("pubs","The Bell Inn","18 Angel Row, NG1 6HL",
  "A timber-framed pub right on the Market Square with medieval cellars and caves carved into the rock beneath. Live jazz some nights.",
  "Ask about cellar tours",price=1,geo="The Bell Inn, Angel Row, Nottingham")
 add("pubs","Hand & Heart","65 Derby Road, NG1 5BA",
- "An ordinary-looking frontage, but the back room is a cave carved into the sandstone cliff. Good real ales and food; quieter than the Trip.",
+ "An ordinary-looking frontage, but the back room is a cave carved into the sandstone cliff. Good real ales and food, and calmer than the Trip. It reopened under new owners after closing in 2022.",
  "Sit in the cave room",price=1,geo="Hand and Heart, Derby Road, Nottingham",ll=(52.9546,-1.1574))
 add("pubs","Kean's Head","46 St Mary's Gate, NG1 1QA",
  "A small, friendly corner pub opposite St Mary's church in the Lace Market. Castle Rock ales and decent food.",
  "Stop between galleries",price=1,geo="Kean's Head, St Mary's Gate, Nottingham",ll=(52.9520,-1.1448))
-add("pubs","The Herbert Kilpin","4 Bridlesmith Gate, NG1 2GR",
- "Named after the Nottingham lace worker who founded AC Milan. Cosy, small, well-kept ales and good pies.",
+add("pubs","The Kilpin Beer Cafe","10 Bridlesmith Walk, NG1 2HR",
+ "Formerly The Herbert Kilpin, named after the Nottingham lace worker who founded AC Milan. A cosy little bar with well-kept cask ales and craft beer.",
  "Trivia to drop on your friends",price=1,geo="The Herbert Kilpin, Bridlesmith Gate, Nottingham",ll=(52.9520,-1.1474))
 add("pubs","The Organ Grinder","21 Alfreton Road, Canning Circus, NG7 3JE",
  "Blue Monkey brewery's pub at Canning Circus. Unpretentious, excellent beer and the famous pork pie and cheese plates.",
@@ -274,9 +271,6 @@ add("bars","The Bodega","23 Pelham Street, NG1 2ED",
 add("gear","Wex Photo Video","103–107 Carrington Street, NG1 7FE",
  "A big camera shop near the station with a proper used counter: second-hand lenses, bodies, flashes and accessories, all with a 12-month warranty. Stock changes daily and isn't all online, so it's worth a browse in person. They'll also buy or part-exchange your old kit.",
  "Used stock is first come, first served",web="https://www.wexphotovideo.com/about-us/store-finder/nottingham/",geo="Wex Photo Video, Carrington Street, Nottingham",ll=(52.9490,-1.1459))
-add("gear","Abbey Road Music (formerly PMT)","Huntingdon Street, NG1",
- "The city's big guitar, bass, drum and keyboard store. It had a large second-hand guitar wall under its former PMT name, and late in 2025 it changed hands to become Abbey Road Music.",
- "Name changed recently; check what's on the used wall",ta=False,geo="PMT Nottingham, Huntingdon Street",ll=(52.9575,-1.1455))
 add("gear","Drum & Guitar","Cranbrook House, Cranbrook Street, NG1 1ES",
  "Calls itself the largest independent music store in the East Midlands. Especially strong on drums, cymbals and percussion, with guitars and amps too, and staff who know their stuff.",
  "Ask about part-exchange and any used stock",ta=False,geo="Drum and Guitar, Cranbrook Street, Nottingham",ll=(52.9536,-1.1418))
@@ -294,10 +288,10 @@ add("gear","CeX, Exchange Walk","2 Exchange Walk, NG1 2NX",
 add("food","The Cheese Shop","4 Flying Horse Walk, NG1 2HN",
  "Run by brothers Rob and Webb Freckingham for more than 15 years: a counter of British and continental cheeses, charcuterie, chutneys and crackers, plus the only café in Flying Horse Walk. A past World Cheese Awards placer.",
  "Ask for Colston Bassett or Cropwell Bishop Stilton, both made in Notts",geo="The Cheese Shop, Flying Horse Walk, Nottingham",ll=(52.9528,-1.1483))
-add("food","Oriental Mart","1A Goldsmith Street, NG1 5JS",
+add("food","Oriental Mart","1A Goldsmith Street, NG1 5ED",
  "Nottingham's best-known East Asian supermarket, with more than 3,000 Chinese, Japanese, Korean, Thai and Vietnamese products: fresh, frozen and dried. Its Umai street-food café serves bao, ramen and Hong Kong snacks.",
  "Good for snacks you won't find anywhere else",web="https://www.orientalmart.co.uk",geo="Oriental Mart, Goldsmith Street, Nottingham",ll=(52.9567,-1.1540))
-add("food","Asiana Hypermarket","Woodborough Road, NG3",
+add("food","Asiana Hypermarket","108 Woodborough Road, NG3 1AR",
  "A huge Oriental supermarket on the edge of the centre, stocking foods from China, Hong Kong, Korea, Thailand, Japan, Vietnam and the Philippines, with big fresh and frozen sections.",
  "Easiest by car; it's uphill from Victoria Centre",ta=False,geo="Asiana Hypermarket, Woodborough Road, Nottingham",ll=(52.9620,-1.1420))
 add("food","Radford Road world food trail","Radford Road, Hyson Green, NG7",
@@ -308,19 +302,19 @@ add("food","Radford Road world food trail","Radford Road, Hyson Green, NG7",
 add("fun","Cave Escape","63 Mansfield Road, NG1 3FN",
  "Escape rooms built into a real sandstone cave system under Mansfield Road, which could only be in Nottingham. Three rooms for up to 18 players at once.",
  "Book ahead, especially at weekends",geo="Cave Escape, Mansfield Road, Nottingham",ll=(52.9588,-1.1489))
-add("fun","Escapologic","2 Stanford Street, NG1 7AQ",
- "The city's biggest escape-room venue, with a range of themed rooms including 18+ horror games in the autumn.",
+add("fun","Escapologic","21–23 Castle Gate, NG1 7AQ",
+ "The city's biggest escape-room venue, with 11 themed rooms across two buildings including 18+ horror games in the autumn.",
  "20% off a second room booked on the day · check hours",geo="Escapologic, Stanford Street, Nottingham",ll=(52.9512,-1.1512))
 add("fun","Break Escape","9a Market Street & 107 Upper Parliament Street, NG1",
  "A family-friendly escape-room company with two city-centre sites and a Robin Hood-themed room, plus Christmas rooms in December.",
  "Cheaper tickets for children",geo="Break Escape, Market Street, Nottingham",ll=(52.9541,-1.1509))
 add("fun","The Original Nottingham Ghost Walk","Starts at Ye Olde Trip to Jerusalem, NG1 6AD",
- "A costumed storyteller leads you round the Castle Quarter after dark, telling the city's ghost stories over about half a mile. Runs on Saturday evenings from January to the first Saturday in December.",
- "Saturdays 7pm · about £9 · just turn up",geo="Ye Olde Trip to Jerusalem, Nottingham",ll=(52.94925,-1.15255))
-add("fun","Ludorati Café","Maid Marian Way, NG1",
+ "A costumed storyteller leads you round the Castle Quarter after dark, telling the city's ghost stories over about half a mile. Runs on Saturday evenings; the 2026 season ends on 7 December.",
+ "Saturdays 7pm · £9 · about 1½–2 hours",geo="Ye Olde Trip to Jerusalem, Nottingham",ll=(52.94925,-1.15255))
+add("fun","Ludorati Café","72 Maid Marian Way, NG1 6BJ",
  "A board-game café with over 750 games, from old favourites to new ones, plus coffee, food and staff who'll teach you the rules. Great on a rainy afternoon.",
  "Book a table at weekends",geo="Ludorati, Maid Marian Way, Nottingham",ll=(52.9520,-1.1530))
-add("fun","The Dice Cup","70 Mansfield Road, NG1 3GY",
+add("fun","The Dice Cup","68–70 Mansfield Road, NG1 3GY",
  "Nottingham's first board-game café and a proper games shop: dice, board games, tabletop miniatures and comics, with vegan-friendly food.",
  "Browse the shop even if you're not staying to play",geo="The Dice Cup, Mansfield Road, Nottingham",ll=(52.9580,-1.1485))
 
@@ -462,3 +456,74 @@ add("charity","Headway Charity Shop, Mapperley","23A Plains Road, Mapperley, NG3
 add("trips","Newark International Antiques & Collectors Fair","Newark Showground, Lincoln Road, NG24 2NY",
  "One of Europe's biggest antiques fairs: thousands of stalls across the Newark showground several times a year. There's also a smaller one-day 'Runway Monday' fair. The town of Newark has its own antiques centres and a castle too.",
  "2026: Runway Monday 23 Nov; next main fair 10–11 Dec (check)",far=True,drive="35 min",geo="Newark Showground",ll=(53.098808,-0.767005))
+
+# ---------------- REVIEW ADDITIONS (Nov 2026) ----------------
+add("gear","London Camera Exchange","7 Pelham Street, NG1 2EH",
+ "A camera dealer with a constantly changing used counter: film and digital bodies and lenses, often serviced, plus part-exchange. A good second stop after Wex.",
+ "Browse the used stock on lcegroup.co.uk and reserve before you travel",web="https://www.lcegroup.co.uk",geo="London Camera Exchange, Pelham Street, Nottingham")
+add("gear","Make It Easy Lab","18 Queen's Bridge Road, NG2 1NB",
+ "A film-photography lab and darkroom offering developing, darkroom hire and courses from beginner film to wet-plate collodion. The hub of Nottingham's analogue scene.",
+ "Workshop-based; check sessions and drop-off times first",ta=False,geo="Make It Easy, Queens Bridge Road, Nottingham",ll=(52.9455,-1.1481))
+add("charity","Sue Ryder Superstore, Clifton","Clifton Triangle, Green Lane, NG11 9LN",
+ "A retail-park charity superstore full of donated furniture, electricals, books and clothes, plus new homeware. The biggest charity shop near the city for furniture.",
+ "Mon–Fri 9:30–16:30 only; take the car",ta=False,far=True,drive="15 min",who=["m","w","k"],geo="Sue Ryder, Clifton Triangle, Nottingham")
+add("food","Small Food Bakery","Primary, 33 Seely Road, NG7 1NU",
+ "A slow-fermentation sourdough and pastry bakery inside the Primary arts building, named one of Britain's top 50 bakeries by the Good Food Guide in January 2026.",
+ "Thu–Sat 9:30–16:00; the custard doughnuts sell out. Pair with Primary",geo="Small Food Bakery, Nottingham",ll=(52.95531,-1.16770))
+add("food","Murat Food Centre","30–40 Bath Street, Sneinton, NG1 1DF",
+ "A big Turkish-run international supermarket with Turkish, Polish and South Asian groceries, fresh bread, olives and a halal butcher, beside Sneinton Market.",
+ "Check it's trading at this address before a special trip",ta=False,geo="Murat, Bath Street, Nottingham",ll=(52.9551,-1.1395))
+add("fun","Warhammer World","Willow Road, Lenton, NG7 2WS",
+ "Games Workshop's global headquarters visitor centre: a miniatures exhibition hall, huge gaming tables, a store with exclusives, and the Bugman's Bar pub. Only in Nottingham.",
+ "The exhibition is ticketed · late opening on Thursdays",web="https://warhammerworld.warhammer-community.com",far=True,geo="Warhammer World, Willow Road, Nottingham")
+add("fun","NQ64","10 Thurland Street, NG1 3DR",
+ "A retro arcade bar in the old Roxy Ballroom, with 30-plus arcade cabinets, pinball, dance mats and consoles, plus game-themed cocktails.",
+ "Free play in the day at weekends; busy late",web="https://nq64.co.uk/nottingham",geo="NQ64, Thurland Street, Nottingham")
+add("fun","National Ice Centre public skating","Bolero Square, NG1 1LA",
+ "Public skating on an Olympic-size rink in the Lace Market, at the home of British ice skating where Torvill and Dean's Bolero is celebrated. Festive sessions run in December.",
+ "Book sessions online",web="https://www.national-ice-centre.com",geo="National Ice Centre, Nottingham")
+add("fun","Winter Wonderland (seasonal)","Old Market Square, NG1 2DT",
+ "The Christmas market fills the Old Market Square, with an ice rink, Observation Wheel and Ice Bar. Entry is free and the rides are ticketed. Runs 12 November to 31 December 2026, with stalls until 24 December.",
+ "Weekday daytimes are far quieter",ta=False,geo="Old Market Square, Nottingham",ll=(52.95300,-1.14960))
+add("music","JT Soar","2 Aberdeen Street, Sneinton, NG3 1JB",
+ "A volunteer-run DIY venue and recording studio in an old warehouse, booking touring UK and US underground punk, indie and noise bands.",
+ "Tickets around £10 · small and informal",ta=False,geo="JT Soar, Aberdeen Street, Nottingham")
+add("music","Albert Hall","North Circus Street, NG1 5AA",
+ "A grand Victorian hall with a famous organ, used for seated gigs, touring bands, comedy and candlelit concerts.",
+ "Balcony seats have the best sound",web="https://www.alberthallnottingham.co.uk",geo="Albert Hall, North Circus Street, Nottingham")
+add("mid","Piccalilli","1a Cannon Court, off Long Row West, NG1 6JE",
+ "A Michelin Bib Gourmand small-plates restaurant up a staircase in a rustic old building, with a seasonal modern British menu. Excellent value for the quality.",
+ "Thu–Sun only; book ahead",price=2,geo="Piccalilli, Cannon Court, Nottingham",ll=(52.9536,-1.1517))
+add("mid","Little Brickhouse","110 Derby Road, NG1 5FB",
+ "A cosy neighbourhood bistro and natural-wine bar with French and Scandinavian-leaning sharing plates, picked by the Good Food Guide as a Best Local Restaurant.",
+ "Fits neatly into a Derby Road antiques browse",price=2,web="https://www.littlebrickhouse.co.uk",geo="Little Brickhouse, Derby Road, Nottingham")
+add("mid","Pici","17 Broad Street, Hockley, NG1 3AJ",
+ "Fresh handmade pasta in a small Hockley dining room, the Good Food Guide's Italian pick for the city.",
+ "Closed Mondays; book at weekends",price=2,geo="Pici, Broad Street, Nottingham")
+add("cheap","Everyday People","12 Byard Lane, NG1 2GJ",
+ "MasterChef finalist Pete Hewitt's ramen and small-plates bar, which calls itself the city's first ramen shop.",
+ "Go for the tonkotsu",price=2,geo="Everyday People, Byard Lane, Nottingham")
+add("cafes","Effy","20A Heathcoat Street, NG1 3AA",
+ "A pink, design-led specialty coffee shop with its own pastries, regularly ranked among the city's best cafés.",
+ "Near Hockley; arrive early for the pastries",price=1,geo="Effy, Heathcoat Street, Nottingham")
+add("pubs","The Barrel Drop","7 Hurts Yard, NG1 6JD",
+ "A tiny two-level micropub run with Magpie Brewery, with five changing cask beers and no TV or music, just conversation.",
+ "Steep curved steps with no handrail",price=1,geo="Barrel Drop, Hurts Yard, Nottingham")
+add("fashion","Universal Works","120–122 Derby Road, NG1 5FB",
+ "The flagship of the Nottingham-born menswear label known nationally for workwear-inspired jackets and knitwear, which is hard to find in shops outside London.",
+ "Mon–Sat 10:00–18:00",web="https://universalworks.co.uk",who=["m"],geo="Universal Works, Derby Road, Nottingham")
+add("parks","Bestwood Country Park & Winding Engine House","Bestwood Lodge Drive, Arnold, NG5 8NE",
+ "650 acres of woods and lakes around a preserved 1873 colliery winding-engine house.",
+ "The engine house opens on Saturday mornings · free parking",far=True,drive="20 min",geo="Bestwood Winding House")
+add("parks","Rushcliffe Country Park","Mere Way, Ruddington, NG11 6JS",
+ "Former colliery land turned into meadows, woodland paths and a lake, with a lakeside café. Pairs with a Ruddington day out.",
+ "Parking about £3",far=True,drive="20 min",geo="Rushcliffe Country Park")
+add("trips","Calke Abbey","Ticknall, Derbyshire, DE73 7JF",
+ "The National Trust's 'un-stately home', left as it was found after its reclusive family's decline, with tunnels, crumbling rooms and an ancient deer park.",
+ "Christmas opening daily 27 Nov–23 Dec 2026",web="https://www.nationaltrust.org.uk/visit/peak-district-derbyshire/calke-abbey",far=True,drive="35 min",geo="Calke Abbey")
+add("trips","Chatsworth","Bakewell, Derbyshire, DE45 1PP",
+ "The Duke of Devonshire's Peak District palace, with a vast garden and a superb art collection. Christmas at Chatsworth runs 7 November 2026 to 3 January 2027, with the Christmas market until 13 December.",
+ "Booking needed at Christmas; add Bakewell",web="https://www.chatsworth.org",far=True,drive="1 hr 5 min",geo="Chatsworth House")
+add("trips","Lincoln","Castle Square, Lincoln, LN1 3AA",
+ "A hilltop cathedral city: the castle holds an original Magna Carta, the cathedral is one of England's finest, and steep Steep Hill is lined with independent shops. The cathedral holds a ticketed Christmas market on 3–5 December 2026.",
+ "Park at the top of the hill and walk down Steep Hill",far=True,drive="55 min",geo="Lincoln Castle")

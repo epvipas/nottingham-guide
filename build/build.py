@@ -287,9 +287,21 @@ def wrap(body, vb="0 0 400 250"):
 
 os.makedirs(os.path.join(OUT, "img"), exist_ok=True)
 items = []
+try:
+    _prev = json.loads(open(os.path.join(OUT, "data.js")).read()[len("window.GUIDE="):].rstrip().rstrip(";"))
+    IDS = {it["name"]: it["id"] for it in _prev["items"]}
+except Exception:
+    IDS = {}
+RENAMED = {"The Kilpin Beer Cafe": "The Herbert Kilpin"}
+_used = set(IDS.values()); _next = [max([int(v[1:]) for v in _used] + [0]) + 1]
+def stable_id(name):
+    pid = IDS.get(name) or IDS.get(RENAMED.get(name, ""))
+    if not pid:
+        pid = f"n{_next[0]}"; _next[0] += 1
+    return pid
 for i, p in enumerate(P, 1):
     lat, lon = coords(p)
-    pid = f"n{i}"
+    pid = stable_id(p["name"])
     r = random.Random(p["name"])
     open(os.path.join(OUT, "img", pid + ".svg"), "w").write(wrap(GEN[p["cat"]](r, "g" + pid)))
     walk = max(1, round(dist((BASE["lat"], BASE["lon"]), (lat, lon)) * 1.3 / 80))
