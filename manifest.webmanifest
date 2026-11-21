@@ -1,0 +1,22 @@
+{
+  "name": "Nottingham Guide: Eat, Drink, Indie Shops & Galleries",
+  "short_name": "Nottingham",
+  "description": "Independent Nottingham: places to eat and drink, quirky shops, vintage, records and small galleries, with maps, reviews and directions.",
+  "id": "./",
+  "start_url": "./#explore",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F6F5F0",
+  "theme_color": "#1F5C45",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"},
+    {"src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ],
+  "shortcuts": [
+    {"name": "Map", "url": "./#map"},
+    {"name": "Eat & Drink", "url": "./#eat"},
+    {"name": "My list", "url": "./#saved"}
+  ]
+}

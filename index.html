@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nottingham Guide</title>
+<meta name="description" content="Independent Nottingham: places to eat and drink, quirky shops, vintage, records and small galleries, with maps, reviews and directions.">
+<meta name="theme-color" content="#1F5C45">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Nottingham">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="vendor/leaflet.css">
+<style>
+:root{--red:#1F5C45;--orange:#E8930C;--yellow:#FFD23F;--teal:#2EC4B6;--blue:#1877D0;--purple:#8E44C9;--pink:#E5007E;--ink:#2B2D42;--bg:#F6F5F0;
+ --safe-b:env(safe-area-inset-bottom,0px);--safe-t:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+a{color:inherit}
+header{position:sticky;top:0;z-index:1050;background:linear-gradient(110deg,#174A37,#2E7D5B 55%,#C9A227);padding:calc(10px + var(--safe-t)) 14px 10px;color:#fff;box-shadow:0 2px 10px rgba(0,0,0,.12)}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img{width:36px;height:36px;border-radius:9px;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.brand h1{margin:0;font-size:22px;font-weight:900;letter-spacing:-.5px;text-shadow:0 2px 0 rgba(10,40,28,.6)}
+.brand small{display:block;font-size:11px;font-weight:600;opacity:.95;text-shadow:none}
+.search{margin-top:9px;display:flex;gap:8px}
+.search input{flex:1;border:0;border-radius:12px;padding:10px 12px;font:600 15px Inter,sans-serif;color:var(--ink);box-shadow:inset 0 0 0 2px rgba(255,255,255,.6)}
+.iconbtn{white-space:nowrap;border:0;border-radius:12px;background:rgba(255,255,255,.95);color:var(--ink);font:800 13px Inter;padding:0 12px;cursor:pointer}
+.iconbtn.on{background:var(--ink);color:var(--yellow)}
+.medot{display:inline-block;width:12px;height:12px;border-radius:50%;background:#4285F4;border:3px solid #fff;box-shadow:0 0 0 1px #4285F4;margin-right:6px;vertical-align:-1px}
+main{padding:12px 12px calc(84px + var(--safe-b));max-width:860px;margin:0 auto}
+.view{display:none}.view.active{display:block}
+.chips{display:flex;gap:7px;overflow-x:auto;padding:2px 2px 10px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:0;border-radius:999px;padding:8px 13px;font:800 13px Inter;background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.1);cursor:pointer;white-space:nowrap}
+.chip.on{color:#fff}
+.sortbar{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:#777;margin:0 2px 8px;gap:8px}
+.sortbar select{border:1px solid #ddd;border-radius:8px;padding:5px;font:600 12px Inter;background:#fff}
+.grid{display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:640px){.grid{grid-template-columns:1fr 1fr}}
+.card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 3px 14px rgba(43,45,66,.10);display:flex;flex-direction:column}
+.pic{position:relative;aspect-ratio:16/7;background:#eee}
+.pic img{width:100%;height:100%;object-fit:cover;display:block}
+.badge{position:absolute;top:10px;left:10px;border-radius:999px;color:#fff;font:800 12px Inter;padding:5px 10px;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.heart{position:absolute;top:8px;right:8px;width:38px;height:38px;border-radius:50%;border:0;background:rgba(255,255,255,.92);font-size:19px;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.body{padding:12px 14px 14px}
+.body h3{margin:0 0 4px;font-size:18px;font-weight:900;letter-spacing:-.2px}
+.meta{display:flex;flex-wrap:wrap;gap:6px;font-size:12px;font-weight:700;color:#555;margin-bottom:6px}
+.meta span{background:#ECEEE8;border-radius:999px;padding:3px 8px}
+.meta .price{background:var(--ink);color:var(--yellow);letter-spacing:1px}
+.addr{font-size:12.5px;color:#666;margin-bottom:6px}
+.text{font-size:14px;line-height:1.5;color:#3b3d50;margin:0}
+.text.clamp{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.more{border:0;background:none;color:var(--blue);font:800 13px Inter;padding:4px 0;cursor:pointer}
+.tip{display:inline-block;margin-top:6px;font-size:12px;font-weight:800;border-radius:999px;padding:4px 10px}
+.actions{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px}
+.btn{display:flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;border-radius:12px;padding:10px 6px;font:800 13px Inter;border:0;cursor:pointer;color:#fff;text-align:center;min-height:42px}
+.b-web{background:#6D28D9}.b-google{background:#4285F4}.b-ta{background:#00AA6C}.b-apple{background:#111}.b-gmaps{background:#0F9D58}.b-map{background:#F3EFE7;color:var(--ink)}
+.btn.wide{grid-column:span 2}
+nav.tabs{position:fixed;bottom:0;left:0;right:0;z-index:1100;background:#fff;display:flex;justify-content:space-around;padding:6px 4px calc(6px + var(--safe-b));box-shadow:0 -2px 12px rgba(0,0,0,.12)}
+nav.tabs button{flex:1;border:0;background:none;font:800 11px Inter;color:#888;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 0;cursor:pointer}
+nav.tabs button .ic{font-size:22px;line-height:1}
+nav.tabs button.on{color:var(--red)}
+#map{height:calc(100vh - 210px - var(--safe-b));height:calc(100dvh - 210px - var(--safe-b));border-radius:16px;overflow:hidden;box-shadow:0 3px 14px rgba(0,0,0,.12)}
+.pin{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;border:2.5px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.35)}
+.pin.hotel{background:var(--ink);color:var(--yellow);font:900 16px Inter}
+.leaflet-popup-content{margin:10px 12px;font-family:Inter}
+.pop h4{margin:0 0 2px;font-size:15px}.pop .addr{margin-bottom:8px}
+.pop .actions{margin-top:6px;gap:6px}.pop .btn{min-height:34px;padding:7px 4px;font-size:12px}
+.mapnote{font-size:12px;color:#777;margin:8px 4px}
+.sec{background:#fff;border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:0 3px 14px rgba(43,45,66,.08)}
+.sec h2{margin:0 0 8px;font-size:21px;font-weight:900}
+.sec h3{margin:14px 0 6px;font-size:16px}
+.sec p,.sec li{font-size:14px;line-height:1.55}
+.sec ul,.sec ol{padding-left:20px;margin:6px 0}
+.hero{border-radius:18px;overflow:hidden;margin-bottom:14px;position:relative}
+.hero img{width:100%;display:block;aspect-ratio:16/8;object-fit:cover}
+.hero .cap{position:absolute;left:12px;bottom:12px;right:12px;background:rgba(43,45,66,.92);color:#fff;border-radius:12px;padding:10px 12px}
+.hero .cap b{font-size:17px}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.fact{background:#EEF5F0;border-radius:12px;padding:10px;font-size:13px;line-height:1.4}
+.opt{border-radius:14px;overflow:hidden;margin:10px 0;border:2px solid}
+.opt h4{margin:0;color:#fff;padding:9px 12px;display:flex;justify-content:space-between;font-size:15px}
+.opt ol{margin:0;padding:10px 14px 10px 30px}
+.gloss{display:grid;gap:8px}
+.gloss div{background:#F8F5EE;border-radius:10px;padding:8px 10px;font-size:13.5px}
+.day{border-radius:14px;padding:12px;margin:8px 0;font-size:14px;line-height:1.5}
+.empty{text-align:center;color:#888;padding:40px 10px;font-size:15px}
+.linkchip{display:inline-block;margin:3px 4px 3px 0;padding:4px 9px;border-radius:999px;background:#F3EFE7;font-size:12.5px;font-weight:700;text-decoration:none;cursor:pointer;border:0}
+/* install banner */
+#install{position:fixed;left:10px;right:10px;bottom:calc(76px + var(--safe-b));z-index:1200;background:var(--ink);color:#fff;border-radius:16px;padding:12px 12px 12px 14px;display:none;align-items:center;gap:10px;box-shadow:0 6px 24px rgba(0,0,0,.35);max-width:640px;margin:0 auto}
+#install img{width:44px;height:44px;border-radius:10px}
+#install .t{flex:1;font-size:13.5px;line-height:1.35}
+#install .t b{color:var(--yellow);font-size:15px}
+#install button{border:0;border-radius:10px;font:900 13px Inter;padding:9px 12px;cursor:pointer}
+#install .go{background:var(--yellow);color:var(--ink)}
+#install .x{background:transparent;color:#bbb;font-size:20px;padding:4px 6px}
+#iosSheet{position:fixed;inset:0;z-index:1300;background:rgba(0,0,0,.5);display:none;align-items:flex-end}
+#iosSheet .s{background:#fff;width:100%;border-radius:20px 20px 0 0;padding:18px 18px calc(22px + var(--safe-b));max-width:640px;margin:0 auto}
+#iosSheet ol{font-size:15px;line-height:1.7;padding-left:22px}
+#toast{z-index:1400!important;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(90px + var(--safe-b));background:var(--ink);color:#fff;padding:9px 14px;border-radius:999px;font:700 13px Inter;z-index:60;opacity:0;transition:opacity .3s;pointer-events:none}
+.coffee{display:flex;gap:6px;justify-content:space-between;overflow-x:auto;padding-bottom:4px}
+.coffee div{flex:1;min-width:52px;text-align:center;font-size:11px;font-weight:800}
+.coffee .g{height:80px;border:3px solid var(--ink);border-top:0;border-radius:0 0 8px 8px;position:relative;overflow:hidden;background:#F7EBD9;margin-bottom:4px}
+.coffee .g span{position:absolute;left:0;right:0;bottom:0;background:#6F4E37}
+.price-row{display:flex;gap:6px;margin:-2px 0 10px}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand"><img src="icon-192.png" alt=""><div><h1>Nottingham</h1><small>Eat · Drink · Indie shops · Vintage · Galleries</small></div></div>
+ <div class="search"><input id="q" type="search" placeholder="Search places, food, streets…" autocomplete="off"><button class="iconbtn" id="nearBtn" title="Sort by distance from me"><span class="medot"></span>Near me</button></div>
+</header>
+
+<main>
+ <section class="view" id="v-explore">
+  <div class="chips" id="chips-see"></div>
+  <div class="sortbar"><span id="count-see"></span><select id="sort-see"><option value="walk">Closest to Market Square</option><option value="name">A–Z</option><option value="me">Closest to me</option></select></div>
+  <div class="grid" id="list-see"></div>
+ </section>
+ <section class="view" id="v-eat">
+  <div class="chips" id="chips-eat"></div>
+  <div class="price-row" id="prices"></div>
+  <div class="sortbar"><span id="count-eat"></span><select id="sort-eat"><option value="walk">Closest to Market Square</option><option value="price">Cheapest first</option><option value="name">A–Z</option><option value="me">Closest to me</option></select></div>
+  <div class="grid" id="list-eat"></div>
+ </section>
+ <section class="view" id="v-map">
+  <div class="chips" id="chips-map"></div>
+  <div id="map"></div>
+  <p class="mapnote">Pins are approximate. The Directions buttons search by name and address, so they'll take you to the right door.</p>
+ </section>
+ <section class="view" id="v-saved">
+  <div class="sec" style="padding:12px 16px"><b>♥ My list</b>: places you've saved, kept on this phone.</div>
+  <div class="grid" id="list-saved"></div>
+ </section>
+ <section class="view" id="v-history">
+  <div class="sec"><h2>📜 A short history of Nottingham</h2>
+  <p><b>The place of caves.</b> The earliest name recorded for the settlement is the Welsh <i>Tigguocobauc</i>, "the place of caves", because people were already carving homes into the soft sandstone cliffs. In the 6th century an Anglo-Saxon chief called Snot settled here, and the town became <i>Snotingaham</i>, the homestead of Snot's people. The S was dropped after the Normans arrived.</p>
+  <p><b>Castle and outlaws.</b> William the Conqueror built a wooden castle on Castle Rock in 1068, and it grew into one of the great royal fortresses of medieval England. Richard I besieged it in 1194, and in 1330 the young Edward III and his friends crept up a secret passage through the rock, now called Mortimer's Hole, to seize Roger Mortimer. The Robin Hood ballads, with their wicked Sheriff of Nottingham, date from this era.</p>
+  <p><b>Civil war and a ducal palace.</b> Charles I raised his standard here in 1642 at the start of the Civil War, but the town and castle were held for Parliament, and the castle was pulled down afterwards. The Duke of Newcastle built the mansion you see today on the Rock in the 1670s. Rioters protesting against the Reform Bill burned it in 1831, and it stood as a shell until it reopened in 1878 as one of the first municipal art galleries outside London.</p>
+  <p><b>Queen of the Midlands.</b> From the 1700s Nottingham was a centre of framework knitting and then machine-made lace. The Luddites began smashing knitting frames near here in 1811. By the late 1800s the Lace Market's tall red-brick warehouses were showing Nottingham lace to buyers from around the world, while the poor crowded into some of England's worst slums, many living in cellars and caves.</p>
+  <p><b>Bikes, pills and cigarettes.</b> Jesse Boot opened his chemist's shop on Goose Gate in 1849, and it grew into Boots. Raleigh bicycles and John Player's cigarettes made the city a manufacturing powerhouse. The Council House on the Old Market Square opened in 1929, and the stone lions in front became the city's favourite meeting point.</p>
+  <p><b>Writers and makers.</b> D. H. Lawrence grew up in nearby Eastwood, and Lord Byron's ancestral home, Newstead Abbey, lies just north of the city. Alan Sillitoe's <i>Saturday Night and Sunday Morning</i> is set in the city's backstreets. Paul Smith opened his first tiny shop here in 1970.</p>
+  <p><b>Today</b> Nottingham is a big student city with two universities, and it was named a UNESCO City of Literature in 2015. The Lace Market and Hockley's warehouses are now full of independent shops, bars and studios, and Sneinton Market's old wholesale units house the city's makers.</p></div>
+ </section>
+ <section class="view" id="v-caves">
+  <div class="sec"><h2>🕳️ A city built on caves</h2>
+  <p>Nottingham sits on soft Sherwood sandstone that can be carved with hand tools, and for a thousand years people have dug into it. More than 800 man-made caves lie under the city: tannery pits, cellars, malt kilns, wartime air-raid shelters and the backs of pubs.</p>
+  <p><b>Pubs in the rock.</b> Ale keeps beautifully at a steady cave temperature, so many of the city's inns stored their beer in cellars cut into the rock, and some of their drinking rooms are caves too. Several still have cave rooms you can drink in.</p>
+  <p><b>See them properly.</b> The <b>City of Caves</b> tour takes you through medieval tannery and Victorian slum caves, and the <b>Castle</b> runs tours of Mortimer's Hole and the other passages under the Rock.</p></div>
+  <div class="sec"><h2>🍺 The rock-pub trail</h2><p>A walk of about 2 km that you can do in an afternoon, roughly in walking order. Each stop is in the guide, so tap a name to see it.</p>
+  <div id="caveTrail"></div>
+  <p style="font-size:13px;color:#666">Pace yourself with halves. Most of these pubs serve food, and the Trip is busiest on summer weekends.</p></div>
+  <div class="sec"><h2>🍻 Ordering like a local</h2><ul>
+   <li><b>Castle Rock</b> and <b>Blue Monkey</b> are the local breweries. Harvest Pale is Castle Rock's best-known beer.</li>
+   <li>Ask for "a pint of the local" and the bar staff will point you at what's on.</li>
+   <li>Real ale is served from the cask with a handpump, slightly cool and gently carbonated. It's not flat, it's meant to be like that.</li>
+   <li>A <b>cob</b> is a bread roll. Ask for a cob, not a bap or a barm.</li>
+  </ul></div>
+ </section>
+ <section class="view" id="v-info"></section>
+</main>
+
+<nav class="tabs">
+ <button data-v="explore" class="on"><span class="ic">🏛️</span>Explore</button>
+ <button data-v="history"><span class="ic">📜</span>History</button>
+ <button data-v="eat"><span class="ic">🍷</span>Eat &amp; Drink</button>
+ <button data-v="caves"><span class="ic">🍺</span>Caves &amp; pubs</button>
+ <button data-v="map"><span class="ic">🗺️</span>Map</button>
+ <button data-v="saved"><span class="ic">♥</span>Saved</button>
+ <button data-v="info"><span class="ic">ℹ️</span>Info</button>
+</nav>
+
+<div id="install"><img src="icon-192.png" alt=""><div class="t"><b>Install the Nottingham guide</b><br>Add it to your home screen. It opens like an app and works offline.</div><button class="go" id="installGo">Install</button><button class="x" id="installX" aria-label="Dismiss">×</button></div>
+<div id="iosSheet"><div class="s"><h3 style="margin:0 0 6px">Add to your iPhone home screen</h3>
+ <ol><li>Tap the <b>Share</b> button <span style="font-size:18px">⬆︎</span> in Safari's toolbar.</li><li>Scroll down and tap <b>Add to Home Screen</b> ➕.</li><li>Tap <b>Add</b>. The guide then opens full-screen like an app.</li></ol>
+ <p style="font-size:13px;color:#777">On iPhone this only works in <b>Safari</b>. If you opened the link in another app, open it in Safari first.</p>
+ <button class="btn b-apple" style="width:100%" id="iosOk">Got it</button></div></div>
+<div id="toast"></div>
+
+<script src="data.js"></script>
+<script src="vendor/leaflet.js"></script>
+<script>
+(() => {
+const G = window.GUIDE, CATS = G.cats, ITEMS = G.items, HOTEL = G.base;
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const store = { get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d } catch(e) { return d } },
+                set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)) } catch(e) {} } };
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+const isAndroid = /Android/i.test(navigator.userAgent);
+const standalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+let saved = new Set(store.get('saved', []));
+let me = null;
+const state = { see: 'all', eat: 'all', price: 0, map: 'all', q: '' };
+
+function toast(t) { const el = $('#toast'); el.textContent = t; el.style.opacity = 1; clearTimeout(toast._t); toast._t = setTimeout(() => el.style.opacity = 0, 1800); }
+
+// ---------- links ----------
+const enc = encodeURIComponent;
+const L_google = it => `https://www.google.com/maps/search/?api=1&query=${enc(it.q)}`;
+const L_ta = it => `https://www.tripadvisor.co.uk/Search?q=${enc(it.name + ' Nottingham')}`;
+const L_apple = it => `https://maps.apple.com/?daddr=${enc(it.q)}&dirflg=w`;
+const L_gmaps = it => `https://www.google.com/maps/dir/?api=1&destination=${enc(it.q)}&travelmode=walking`;
+
+function dist(a, b) { const R = 6371000, toR = x => x * Math.PI / 180;
+  const dLa = toR(b.lat - a.lat), dLo = toR(b.lon - a.lon);
+  const h = Math.sin(dLa/2)**2 + Math.cos(toR(a.lat))*Math.cos(toR(b.lat))*Math.sin(dLo/2)**2; return 2*R*Math.asin(Math.sqrt(h)); }
+function meMin(it) { return me ? Math.max(1, Math.round(dist(me, it) * 1.3 / 80)) : null; }
+
+function webBtn(it) {
+  return it.web ? `<a class="btn b-web" href="${it.web}" target="_blank" rel="noopener">🌐 Website</a>` : '';
+}
+function navButtons(it, small) {
+  const apple = `<a class="btn b-apple" href="${L_apple(it)}" target="_blank" rel="noopener">🍎 Apple Maps</a>`;
+  const gm = `<a class="btn b-gmaps" href="${L_gmaps(it)}" target="_blank" rel="noopener">🧭 Google Maps</a>`;
+  return isIOS ? apple + gm : gm + apple;
+}
+function actions(it, small) {
+  return `<div class="actions">
+    <a class="btn b-google" href="${L_google(it)}" target="_blank" rel="noopener">★ Google reviews</a>
+    ${it.ta ? `<a class="btn b-ta" href="${L_ta(it)}" target="_blank" rel="noopener">🦉 TripAdvisor</a>` : `<span class="btn b-map" style="opacity:.5">No TripAdvisor</span>`}
+    ${webBtn(it)}
+    ${navButtons(it)}
+    ${small ? '' : `<button class="btn b-map wide" data-showmap="${it.id}">🗺️ Show on map</button>`}
+  </div>`;
+}
+
+function card(it) {
+  const c = CATS[it.cat];
+  const dm = meMin(it);
+  const price = it.price ? `<span class="price">${'£'.repeat(it.price)}</span>` : '';
+  return `<article class="card" id="c-${it.id}">
+   <div class="pic"><img loading="lazy" src="${it.img}" alt=""><span class="badge" style="background:${c.color}">${c.emoji} ${esc(c.title)}</span>
+    <button class="heart" data-save="${it.id}" aria-label="Save">${saved.has(it.id) ? '❤️' : '🤍'}</button></div>
+   <div class="body"><h3 style="color:${c.color}">${esc(it.name)}</h3>
+    <div class="meta">${price}<span>🚶 ${it.walk} min from the Square</span>${dm ? `<span>📍 ${dm} min from you</span>` : ''}${it.far ? '<span>🚋 tram, bus or car</span>' : ''}</div>
+    <div class="addr">📍 ${esc(it.addr)}</div>
+    <p class="text clamp">${esc(it.text)}</p><button class="more" data-more>Read more</button>
+    ${it.tip ? `<div><span class="tip" style="background:${c.color}1F;color:${c.color}">★ ${esc(it.tip)}</span></div>` : ''}
+    ${actions(it)}
+   </div></article>`;
+}
+
+function matches(it) {
+  if (!state.q) return true;
+  const q = state.q.toLowerCase();
+  return (it.name + ' ' + it.addr + ' ' + it.text + ' ' + CATS[it.cat].title).toLowerCase().includes(q);
+}
+function sorted(list, how) {
+  const a = list.slice();
+  if (how === 'name') a.sort((x, y) => x.name.localeCompare(y.name));
+  else if (how === 'price') a.sort((x, y) => x.price - y.price || x.walk - y.walk);
+  else if (how === 'me' && me) a.sort((x, y) => dist(me, x) - dist(me, y));
+  else a.sort((x, y) => x.walk - y.walk);
+  return a;
+}
+
+function chips(sec, el, key) {
+  const cats = Object.entries(CATS).filter(([k, c]) => !sec || c.sec === sec);
+  const all = `<button class="chip ${state[key]==='all'?'on':''}" style="${state[key]==='all'?'background:var(--ink)':''}" data-chip="${key}" data-v="all">All</button>`;
+  el.innerHTML = all + cats.map(([k, c]) => `<button class="chip ${state[key]===k?'on':''}" style="${state[key]===k?`background:${c.color}`:''}" data-chip="${key}" data-v="${k}">${c.emoji} ${esc(c.title)}</button>`).join('');
+}
+
+function renderList(sec) {
+  const key = sec === 'see' ? 'see' : 'eat';
+  chips(sec, $(`#chips-${key}`), key);
+  let list = ITEMS.filter(it => CATS[it.cat].sec === sec && (state[key] === 'all' || it.cat === state[key]) && matches(it));
+  if (sec === 'eat' && state.price) list = list.filter(it => it.price === state.price);
+  list = sorted(list, $(`#sort-${key}`).value);
+  $(`#count-${key}`).textContent = `${list.length} place${list.length === 1 ? '' : 's'}`;
+  $(`#list-${key}`).innerHTML = list.length ? list.map(card).join('') : '<div class="empty">Nothing matches. Try another filter.</div>';
+}
+function renderPrices() {
+  $('#prices').innerHTML = [0,1,2,3,4].map(p => `<button class="chip ${state.price===p?'on':''}" style="${state.price===p?'background:var(--ink)':''}" data-price="${p}">${p ? '£'.repeat(p) : 'Any price'}</button>`).join('');
+}
+function renderSaved() {
+  const list = ITEMS.filter(it => saved.has(it.id));
+  $('#list-saved').innerHTML = list.length ? list.map(card).join('') : '<div class="empty">Tap 🤍 on any place to save it here.</div>';
+}
+function renderAll() { renderList('see'); renderPrices(); renderList('eat'); renderSaved(); if (mapReady) renderMarkers(); }
+
+// ---------- map ----------
+let map, layer, mapReady = false, markers = {};
+function initMap() {
+  if (mapReady || !window.L) return;
+  map = L.map('map', { zoomControl: true }).setView([52.9525, -1.1480], 15);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' }).addTo(map);
+  const hi = L.divIcon({ className: '', html: '<div class="pin hotel">★</div>', iconSize: [34, 34], iconAnchor: [17, 17] });
+  L.marker([HOTEL.lat, HOTEL.lon], { icon: hi, zIndexOffset: 1000 }).addTo(map)
+   .bindPopup(`<div class="pop"><h4>🦁 ${esc(HOTEL.name)}</h4><div class="addr">${esc(HOTEL.addr)}<br>Distances in the guide are walking minutes from here.</div>${actions({q: 'Council House, Old Market Square, Nottingham', name: 'Council House Nottingham', ta: true}, true)}</div>`);
+  layer = L.layerGroup().addTo(map);
+  mapReady = true; renderMarkers();
+  L.control.locate = null;
+  const LocBtn = L.Control.extend({ onAdd() { const b = L.DomUtil.create('button', 'iconbtn'); b.innerHTML = '<span class="medot"></span>Me'; b.style.cssText = 'padding:8px 10px;box-shadow:0 1px 5px rgba(0,0,0,.3)';
+    L.DomEvent.on(b, 'click', e => { L.DomEvent.stop(e); locate(true); }); return b; } });
+  new LocBtn({ position: 'topright' }).addTo(map);
+  const ShareBtn = L.Control.extend({ onAdd() { const b = L.DomUtil.create('button', 'iconbtn'); b.innerHTML = '📍 Share'; b.style.cssText = 'padding:8px 10px;box-shadow:0 1px 5px rgba(0,0,0,.3)';
+    L.DomEvent.on(b, 'click', e => { L.DomEvent.stop(e); shareMyLocation(); }); return b; } });
+  new ShareBtn({ position: 'topright' }).addTo(map);
+}
+// Snapshot share: a Google Maps link to the phone's current position. No live tracking, no backend.
+function shareMyLocation() {
+  if (!navigator.geolocation) { toast('Location not available'); return; }
+  const name = (window.prompt('Your name, so people know who this is from (optional):', '') || '').trim();
+  toast('Finding you…');
+  navigator.geolocation.getCurrentPosition(p => {
+    const lat = p.coords.latitude.toFixed(6), lon = p.coords.longitude.toFixed(6);
+    const link = `https://www.google.com/maps?q=${lat},${lon}`;
+    const text = `${name ? name + ' is' : 'I am'} here: ${link}`;
+    if (navigator.share) {
+      navigator.share({ title: 'My location', text, url: link }).catch(() => {});
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(() => toast('Location link copied')).catch(() => toast(link));
+    } else {
+      toast(link);
+    }
+  }, () => toast('Could not get your location'), { enableHighAccuracy: true, timeout: 15000 });
+}
+let meMarker;
+function renderMarkers() {
+  chips(null, $('#chips-map'), 'map');
+  layer.clearLayers(); markers = {};
+  ITEMS.filter(it => (state.map === 'all' || it.cat === state.map) && matches(it)).forEach(it => {
+    const c = CATS[it.cat];
+    const ic = L.divIcon({ className: '', html: `<div class="pin" style="background:${c.color}">${c.emoji}</div>`, iconSize: [28, 28], iconAnchor: [14, 14], popupAnchor: [0, -12] });
+    const m = L.marker([it.lat, it.lon], { icon: ic }).bindPopup(`<div class="pop"><h4 style="color:${c.color}">${esc(it.name)}</h4><div class="addr">${it.price ? '<b>' + '£'.repeat(it.price) + '</b> · ' : ''}🚶 ${it.walk} min from the Square<br>${esc(it.addr)}</div>
+      <button class="linkchip" data-goto="${it.id}">Read more ›</button>${actions(it, true)}</div>`, { maxWidth: 290 });
+    m.addTo(layer); markers[it.id] = m;
+  });
+  if (me) drawMe();
+}
+function drawMe() {
+  if (!mapReady) return;
+  if (meMarker) meMarker.remove();
+  meMarker = L.circleMarker([me.lat, me.lon], { radius: 9, color: '#fff', weight: 3, fillColor: '#4285F4', fillOpacity: 1 }).addTo(map).bindPopup('You are here');
+}
+function showOnMap(id) {
+  const it = ITEMS.find(x => x.id === id); go('map');
+  setTimeout(() => { map.invalidateSize(); if (state.map !== 'all' && state.map !== it.cat) { state.map = 'all'; renderMarkers(); }
+    map.setView([it.lat, it.lon], 17); markers[id] && markers[id].openPopup(); }, 120);
+}
+
+// ---------- geolocation ----------
+function locate(pan) {
+  if (!navigator.geolocation) { toast('Location not available'); return; }
+  toast('Finding you…');
+  navigator.geolocation.getCurrentPosition(p => {
+    me = { lat: p.coords.latitude, lon: p.coords.longitude };
+    $('#nearBtn').classList.add('on');
+    ['see', 'eat'].forEach(k => $(`#sort-${k}`).value = 'me');
+    renderAll();
+    if (mapReady) { drawMe(); if (pan) map.setView([me.lat, me.lon], 16); }
+    toast(dist(me, HOTEL) > 30000 ? 'Located: you\'re not in Nottingham yet!' : 'Sorted by distance from you');
+  }, () => toast('Location permission denied'), { enableHighAccuracy: true, timeout: 10000 });
+}
+
+// ---------- info ----------
+function iref(id, label) { const it = ITEMS.find(x => x.id === id); return `<button class="linkchip" data-goto="${id}" style="color:${CATS[it.cat].color}">${CATS[it.cat].emoji} ${esc(label || it.name)}</button>`; }
+function byName(n) { const it = ITEMS.find(x => x.name === n); if (!it) throw new Error('No place called ' + n); return it.id; }
+function refs(names) { return names.map(n => iref(byName(n))).join(' '); }
+function renderCaves() {
+  const stops = [
+    ['City of Caves', 'Start in daylight with the guided tour under the old Broadmarsh. Tours take about an hour.'],
+    ['Ye Olde Trip to Jerusalem', 'England\'s self-styled oldest inn, with drinking rooms cut into Castle Rock. Ten minutes\' walk west.'],
+    ['Malt Cross', 'Victorian music hall with caves below. Ask if you can see them.'],
+    ['The Bell Inn', 'Timber-framed pub on the Market Square with medieval cellars in the rock.'],
+    ['Hand & Heart', 'Up Derby Road: the back room is carved into the cliff.'],
+    ['The Organ Grinder', 'Finish at Canning Circus with a Blue Monkey pint and a pork pie.'],
+  ];
+  $('#caveTrail').innerHTML = '<ol>' + stops.map(([n, t]) => `<li style="margin-bottom:8px">${iref(byName(n))}<br>${esc(t)}</li>`).join('') + '</ol>';
+}
+function renderInfo() {
+  const hq = { q: 'Council House, Old Market Square, Nottingham', name: 'Council House Nottingham', ta: true };
+  $('#v-info').innerHTML = `
+  <div class="hero"><img src="img/cover.svg" alt=""><div class="cap"><span style="color:#FFD23F;font-size:11px;font-weight:800;letter-spacing:2px">YOUR BASE</span><br><b>Old Market Square</b><br><span style="font-size:13px">"Meet you by the left lion": the stone lions in front of the Council House. Walking times in the guide are from here.</span></div></div>
+  <div class="sec"><h2>🚗 Getting in from an hour away</h2>
+   <img src="img/transit.svg" alt="" style="width:100%;border-radius:12px;aspect-ratio:16/7;object-fit:cover">
+   <div class="opt" style="border-color:#1F5C45"><h4 style="background:#1F5C45"><span>🚋 Tram Park &amp; Ride</span><span>free parking · ≈ £5.70 day</span></h4><ol>
+    <li>The easiest option. Park at a tram Park &amp; Ride: <b>Phoenix Park</b> (M1 J26), <b>Toton Lane</b> (M1 J25), <b>Clifton South</b> (A453, from M1 J24) or <b>Hucknall</b> (from the north).</li>
+    <li>Parking is free if you hold a valid tram ticket from the moment you park. An adult day ticket is about £5.65–5.80 in 2026; tapping in with contactless caps the fare for you.</li>
+    <li>Get off at <b>Old Market Square</b> for the centre, <b>Lace Market</b> for Hockley and the galleries, or <b>Nottingham Station</b> for Hopkinsons and the canal.</li></ol></div>
+   <div class="opt" style="border-color:#C9A227"><h4 style="background:#C9A227"><span>🅿️ Driving into the centre</span><span>pricier · slower</span></h4><ol>
+    <li>Good multi-storeys for this guide: <b>Victoria Centre</b> (Hockley side), <b>Trinity Square</b> (north), and the <b>Broad Marsh</b> car park by the bus station (south, near the Lace Market and caves).</li>
+    <li>Saturday afternoons and December get very busy. The Workplace Parking Levy applies to employers, not visitors.</li></ol></div>
+   <div class="opt" style="border-color:#1877D0"><h4 style="background:#1877D0"><span>🚆 By train</span><span>10 min walk to the Square</span></h4><ol>
+    <li>Nottingham station is south of the centre. Walk up Carrington Street, or take the tram from the bridge over the platforms.</li>
+    <li>Hopkinsons vintage emporium and the Vat &amp; Fiddle are right by the station, for the first or last stop of the day.</li></ol></div>
+   ${actions(hq, true)}
+  </div>
+  <div class="sec"><h2>🗓️ Three easy days</h2>
+   <div class="day" style="background:#FDE3DF"><b>Day 1 · Hockley &amp; the Lace Market:</b> ${refs(['Paul Smith, Willoughby House', 'Nottingham Contemporary', 'Lace Market & St Mary\'s Church', 'Fletcher Gate Fine Art', 'Delilah Fine Foods', 'Rough Trade Nottingham', 'Goose Gate vintage & Hockley shops', 'Broadway Cinema', 'Ibérico World Tapas'])}</div>
+   <div class="day" style="background:#DDEBFA"><b>Day 2 · Arcades, books &amp; caves:</b> ${refs(['Flying Horse Walk', 'Page 45', 'Five Leaves Bookshop', 'Hurts Yard', 'Rob\'s Records', 'Kushi-ya', 'City of Caves', 'Ye Olde Trip to Jerusalem', 'Hart\'s Kitchen'])}</div>
+   <div class="day" style="background:#EFE2F8"><b>Day 3 · Makers &amp; artist-run galleries (best on a Saturday):</b> ${refs(['Sneinton Market Avenues', 'Surface Gallery', 'BACKLIT', 'Bustler Market', 'Fox & Grapes', 'New Art Exchange', 'Derby Road antiques & vintage strip', 'The Organ Grinder', 'Alchemilla'])}</div>
+  </div>
+  <div class="sec"><h2>🌙 Evenings by budget</h2>
+   <div class="day" style="background:#D8F3EE"><b>£ Cheap &amp; cheerful:</b> ${refs(['Bustler Market', 'Kayal', 'Shanghai Shanghai', 'The Angel Microbrewery'])}</div>
+   <div class="day" style="background:#FDEFD6"><b>££ Small plates &amp; good drinks:</b> ${refs(['Kushi-ya', 'Bar Gigi', 'Sexy Mamma Love Spaghetti', 'Junkyard', 'The Canal House'])}</div>
+   <div class="day" style="background:#EFE2F8"><b>££££ The big night:</b> ${refs(['Alchemilla', 'Restaurant Sat Bains', 'Hart\'s Kitchen', 'The Hockley Arts Club'])}
+    <p style="margin:8px 0 0;font-size:13px">Sat Bains is a restaurant with rooms: stay over and skip the drive home.</p></div>
+  </div>
+  <div class="sec"><h2>🎄 What's on this winter</h2><ul>
+   <li><b>Winter Wonderland</b> in Old Market Square, 12 November to 31 December 2026: Christmas market stalls until 24 December, plus an ice rink, Observation Wheel and Ice Bar. Entry is free and the rides are ticketed.</li>
+   <li><b>Panto</b> at the Theatre Royal runs through December and into January, so book ahead.</li>
+   <li>Later in the year: <b>Goose Fair</b> (one of England's oldest travelling fairs, early October) and <b>Hockley Hustle</b> (a one-day music festival across Hockley's venues, October).</li>
+   <li>For gigs, exhibitions and new openings, check <a href="https://leftlion.co.uk" target="_blank" rel="noopener">LeftLion</a>, the city's culture magazine.</li></ul></div>
+  <div class="sec"><h2>🏘️ Neighbourhoods</h2><ul>
+   <li><b>Hockley:</b> red-brick streets of record shops, vintage, cafés and cocktail bars around Goose Gate, Carlton Street and Broad Street. The indie heartland, 5 minutes east of the Square.</li>
+   <li><b>Lace Market:</b> tall Victorian lace warehouses around St Mary's church, with Nottingham Contemporary, the Shire Hall and quiet streets to wander.</li>
+   <li><b>Around the Square:</b> the jitties (alleys) and arcades off the Old Market Square: Hurts Yard, Flying Horse Walk, Bridlesmith Walk, Long Row and the Exchange Arcade.</li>
+   <li><b>Castle &amp; The Park:</b> Castle Rock, the Trip to Jerusalem, the canal, and the private Victorian estate of grand villas reached through the Park Tunnel.</li>
+   <li><b>Derby Road &amp; Canning Circus:</b> antiques and vintage climbing west to three good pubs, with Alchemilla at the top.</li>
+   <li><b>Sneinton:</b> Sneinton Market's makers' units, Bustler street food, Surface Gallery, BACKLIT and Green's Windmill, 10 minutes east of Hockley.</li>
+  </ul></div>
+  <div class="sec"><h2>🗣️ Speak Nottingham</h2><div class="gloss">
+   <div><b>Ay up, me duck</b>: hello, said to everyone</div><div><b>Mardy</b>: grumpy, sulky</div>
+   <div><b>Jitty</b>: a narrow alley between buildings. Plenty of the best shops are down one</div><div><b>Cob</b>: a bread roll</div>
+   <div><b>Gizza</b>: give me ("gizza cob")</div><div><b>Gooz Fair</b>: Goose Fair, the October fair</div>
+   <div><b>Left lion</b>: the Council House lion everyone meets by</div><div><b>Notts</b>: Nottingham or Nottinghamshire</div></div></div>
+  <div class="sec"><h2>🕐 Opening hours</h2><ul>
+   <li><b>Mondays</b> are the quiet day: many independent restaurants, Nottingham Contemporary and several galleries close, and some restaurants close on Tuesdays too.</li>
+   <li><b>Saturdays</b> are best for Sneinton Market and the small shops. Sundays are shorter, usually about 10:00 or 11:00 to 16:00.</li>
+   <li>The small artist-run galleries (Surface, BACKLIT, Primary, Hooten Street) open mainly while a show is on, so check before you go.</li>
+   <li>Book Friday and Saturday dinners ahead, and the Michelin restaurants weeks ahead.</li></ul></div>
+  <div class="sec"><h2>⚠️ Before you go</h2><ul>
+   <li>Independent places come and go quickly. Check each venue's own site or socials the day before.</li>
+   <li><b>Recently closed:</b> The Larder on Goosegate, Boilermaker (the site is now Boca Lima), Petit Paris, Chino Latino and Long Row Social have all closed, so they're not in the guide.</li>
+   <li>Listings conflicted for <b>Annie's Burger Shack</b> and <b>Cow Vintage</b>. Check they're trading before you plan around them.</li>
+   <li>Sneinton Market's hall is due for refurbishment from autumn 2026, so some units may be shut.</li>
+   <li>Map pins come from OpenStreetMap and are close but not exact; use the Directions buttons for door-to-door routes.</li>
+   <li>Information was checked in November 2026. The illustrations are original artwork drawn for this guide.</li></ul>
+   <button class="btn b-map" id="installAgain" style="width:100%;margin-top:8px">📲 Install this guide on your phone</button></div>
+  <div class="sec"><h2>🔄 Updates</h2><p>The guide checks for new content whenever you're online. If something looks out of date, tap below to clear the saved copy and reload.</p>
+  <button class="iconbtn" id="refreshBtn" style="padding:10px 14px;box-shadow:0 1px 5px rgba(0,0,0,.2)">Refresh guide</button></div>`;
+}
+
+// ---------- navigation ----------
+function go(v) {
+  document.querySelectorAll('.view').forEach(x => x.classList.toggle('active', x.id === 'v-' + v));
+  document.querySelectorAll('nav.tabs button').forEach(b => b.classList.toggle('on', b.dataset.v === v));
+  if (location.hash !== '#' + v) history.replaceState(null, '', '#' + v);
+  window.scrollTo(0, 0);
+  if (v === 'map') { initMap(); setTimeout(() => map && map.invalidateSize(), 60); }
+  if (v === 'saved') renderSaved();
+  store.set('view', v);
+}
+function gotoItem(id) {
+  const it = ITEMS.find(x => x.id === id); const sec = CATS[it.cat].sec;
+  const key = sec === 'see' ? 'see' : 'eat';
+  state[key] = 'all'; state.q = ''; $('#q').value = ''; if (sec === 'eat') state.price = 0;
+  renderAll(); go(sec === 'see' ? 'explore' : 'eat');
+  setTimeout(() => { const el = $('#c-' + id); if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); el.style.outline = '3px solid ' + CATS[it.cat].color; setTimeout(() => el.style.outline = '', 1800); } }, 80);
+}
+
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-v],[data-chip],[data-save],[data-more],[data-showmap],[data-goto],[data-price]');
+  if (!t) return;
+  if (t.matches('nav.tabs button')) return go(t.dataset.v);
+  if (t.dataset.chip) { state[t.dataset.chip] = t.dataset.v; if (t.dataset.chip === 'map') renderMarkers(); else renderList(t.dataset.chip === 'see' ? 'see' : 'eat'); return; }
+  if (t.dataset.price !== undefined) { state.price = +t.dataset.price; renderPrices(); renderList('eat'); return; }
+  if (t.dataset.save) { const id = t.dataset.save; saved.has(id) ? saved.delete(id) : saved.add(id); store.set('saved', [...saved]);
+    document.querySelectorAll(`[data-save="${id}"]`).forEach(b => b.textContent = saved.has(id) ? '❤️' : '🤍');
+    toast(saved.has(id) ? 'Saved to My list' : 'Removed'); if ($('#v-saved').classList.contains('active')) renderSaved(); return; }
+  if (t.hasAttribute('data-more')) { const p = t.previousElementSibling; p.classList.toggle('clamp'); t.textContent = p.classList.contains('clamp') ? 'Read more' : 'Show less'; return; }
+  if (t.dataset.showmap) return showOnMap(t.dataset.showmap);
+  if (t.dataset.goto) { if (map) map.closePopup(); return gotoItem(t.dataset.goto); }
+});
+$('#q').addEventListener('input', e => { state.q = e.target.value.trim(); renderAll(); });
+$('#sort-see').addEventListener('change', e => { if (e.target.value === 'me' && !me) return locate(); renderList('see'); });
+$('#sort-eat').addEventListener('change', e => { if (e.target.value === 'me' && !me) return locate(); renderList('eat'); });
+$('#nearBtn').addEventListener('click', () => locate(false));
+
+// ---------- install prompt ----------
+let deferred = null;
+const dismissed = store.get('installDismissed', 0);
+function showBanner() { if (standalone) return; $('#install').style.display = 'flex'; }
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferred = e; if (Date.now() - dismissed > 3 * 864e5) setTimeout(showBanner, 1500); });
+function doInstall() {
+  if (deferred) { deferred.prompt(); deferred.userChoice.finally(() => { deferred = null; $('#install').style.display = 'none'; }); }
+  else if (isIOS) { $('#iosSheet').style.display = 'flex'; $('#install').style.display = 'none'; }
+  else toast(standalone ? 'Already installed 👍' : 'Use your browser menu ⋮ → "Add to Home screen"');
+}
+$('#installGo').addEventListener('click', doInstall);
+$('#installX').addEventListener('click', () => { $('#install').style.display = 'none'; store.set('installDismissed', Date.now()); });
+$('#iosOk').addEventListener('click', () => $('#iosSheet').style.display = 'none');
+$('#iosSheet').addEventListener('click', e => { if (e.target.id === 'iosSheet') e.currentTarget.style.display = 'none'; });
+document.addEventListener('click', e => { if (e.target.id === 'installAgain') doInstall(); });
+if (isIOS && !standalone && Date.now() - dismissed > 3 * 864e5) {
+  setTimeout(() => { $('#installGo').textContent = 'How?'; showBanner(); }, 2500);
+}
+window.addEventListener('appinstalled', () => { $('#install').style.display = 'none'; toast('Installed! Find it on your home screen'); });
+
+// ---------- boot ----------
+renderInfo(); renderCaves(); renderAll();
+const startV = (location.hash || '').slice(1) || store.get('view', 'explore');
+go(['explore', 'history', 'eat', 'caves', 'map', 'saved', 'info'].includes(startV) ? startV : 'explore');
+window.addEventListener('hashchange', () => { const v = location.hash.slice(1); if (['explore','history','eat','caves','map','saved','info'].includes(v)) go(v); });
+if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+$('#refreshBtn').addEventListener('click', async () => {
+  toast('Refreshing…');
+  try {
+    if ('serviceWorker' in navigator) { const reg = await navigator.serviceWorker.getRegistration(); if (reg) await reg.update(); }
+    const ks = await caches.keys(); await Promise.all(ks.filter(k => k !== 'nottingham-tiles').map(k => caches.delete(k)));
+  } catch (e) {}
+  location.reload();
+});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+import json, math, random, re, os, sys
+sys.path.insert(0, os.path.dirname(__file__))
+from places import P, CATS
+
+OUT = os.path.join(os.path.dirname(__file__), "..")
+BASE = {"name": "Old Market Square", "addr": "Council House, Old Market Square, NG1 2DT", "lat": 52.95327, "lon": -1.14975}
+
+OVR = {
+ "Nottingham Castle": (52.94950, -1.15468), "BACKLIT": (52.95568, -1.13568), "Primary": (52.95531, -1.16770),
+ "Bonington Gallery": (52.95827, -1.15321), "Djanogly Gallery, Lakeside Arts": (52.93930, -1.18860),
+ "Debbie Bryan": (52.95215, -1.14790), "Debbie Bryan tearoom": (52.95215, -1.14790),
+ "Sneinton Market Avenues": (52.95474, -1.13791), "Delilah Fine Foods": (52.95312, -1.14644),
+ "Hopkinsons Vintage & Antiques": (52.94782, -1.14614), "Cow Vintage": (52.95363, -1.14499),
+ "Doughnotts": (52.95328, -1.14778), "Shanghai Shanghai": (52.95375, -1.14312), "Kushi-ya": (52.95124, -1.14772),
+ "Ibérico World Tapas": (52.95084, -1.14443), "Hart's Kitchen": (52.95147, -1.15662), "Fox & Grapes": (52.95367, -1.13771),
+ "The Vat & Fiddle": (52.94570, -1.14833), "The Canal House": (52.94827, -1.14856), "Shio": (52.95450, -1.15254),
+ "Derby Road antiques & vintage strip": (52.95450, -1.15900), "Robin Hood statue": (52.95060, -1.15200),
+ "Rob's Records": (52.95480, -1.15160), "Hooten Street Project": (52.95520, -1.13700),
+}
+geo = json.load(open(os.path.join(os.path.dirname(__file__), "geo.json")))
+
+def dist(a, b):
+    R = 6371000; t = math.radians
+    h = math.sin(t(b[0]-a[0])/2)**2 + math.cos(t(a[0]))*math.cos(t(b[0]))*math.sin(t(b[1]-a[1])/2)**2
+    return 2*R*math.asin(math.sqrt(h))
+
+def coords(p):
+    if p["name"] in OVR: return OVR[p["name"]]
+    r = geo.get(p["name"]) or []
+    if r:
+        g = tuple(r[0][:2])
+        if not p["ll"] or dist(g, p["ll"]) < 400: return g
+    if p["ll"]: return p["ll"]
+    raise SystemExit("no coords for " + p["name"])
+
+# ---------------- illustrations ----------------
+PAL = {
+ "sky": [("#8EC5FC", "#E0C3FC"), ("#A1C4FD", "#C2E9FB"), ("#FBC2EB", "#A6C1EE"), ("#FFD3A5", "#FD6585"), ("#84FAB0", "#8FD3F4")],
+ "brick": ["#B5523B", "#A4442F", "#C2614A", "#9A3E2B", "#B9583F"],
+ "stone": ["#D9B07A", "#E2BE88", "#CFA46C", "#E6C38F"],
+ "pop": ["#E8483B", "#E8930C", "#FFD23F", "#2EC4B6", "#1877D0", "#8E44C9", "#E5007E", "#24563F"],
+}
+def sky(r, gid):
+    a, b = r.choice(PAL["sky"])
+    return f'<defs><linearGradient id="{gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{a}"/><stop offset="1" stop-color="{b}"/></linearGradient></defs><rect width="400" height="250" fill="url(#{gid})"/>'
+def warehouse(x, w, h, col, r, ground=200):
+    s = f'<rect x="{x}" y="{ground-h}" width="{w}" height="{h}" fill="{col}"/>'
+    s += f'<rect x="{x-4}" y="{ground-h-6}" width="{w+8}" height="8" fill="#00000030"/>'
+    cols = max(2, w // 22)
+    for i in range(cols):
+        for j in range(max(1, (h-20)//30)):
+            wx = x + 8 + i*(w-16)/cols; wy = ground - h + 14 + j*30
+            s += f'<rect x="{wx:.0f}" y="{wy}" width="{(w-16)/cols-7:.0f}" height="18" rx="7" fill="#FFF3D6" opacity=".85"/>'
+    return s
+def clouds(r):
+    return ''.join(f'<ellipse cx="{r.randint(30,370)}" cy="{r.randint(20,60)}" rx="{r.randint(18,34)}" ry="{r.randint(6,10)}" fill="#fff" opacity=".8"/>' for _ in range(r.randint(1,3)))
+
+def svg_sights(r, gid):
+    s = sky(r, gid) + clouds(r)
+    stone = r.choice(PAL["stone"])
+    s += f'<path d="M0 250 L0 150 Q60 120 130 135 Q200 150 260 125 Q330 100 400 130 L400 250Z" fill="{stone}"/>'
+    for _ in range(r.randint(2,4)):
+        cx = r.randint(30, 370); cy = r.randint(175, 215)
+        s += f'<path d="M{cx-16} {cy+20} L{cx-16} {cy} Q{cx} {cy-22} {cx+16} {cy} L{cx+16} {cy+20}Z" fill="#5A3A22" opacity=".75"/>'
+    x = r.randint(60, 220); col = r.choice(PAL["brick"]); w = r.randint(90, 140); h = r.randint(55, 80); top = 150 - h - 6
+    if r.random() < .5:
+        m = x + w/2
+        s += f'<path d="M{m-36} {top} Q{m} {top-60} {m+36} {top}Z" fill="#7FA79A"/><rect x="{m-3}" y="{top-62}" width="6" height="16" fill="#FFD23F"/>'
+    s += warehouse(x, w, h, col, r, ground=150)
+    s += f'<rect x="0" y="236" width="400" height="14" fill="#00000018"/>'
+    return s
+def svg_galleries(r, gid):
+    wall = r.choice(["#F4EFE6", "#EDE7F6", "#E8F1EE", "#FBEDE7"])
+    s = f'<rect width="400" height="250" fill="{wall}"/><rect y="200" width="400" height="50" fill="#B98A5E"/><rect y="200" width="400" height="5" fill="#00000020"/>'
+    x = 30
+    while x < 360:
+        w = r.randint(60, 110); h = r.randint(60, 120); y = r.randint(40, 190 - h)
+        s += f'<rect x="{x-5}" y="{y-5}" width="{w+10}" height="{h+10}" fill="#2B2D42"/><rect x="{x}" y="{y}" width="{w}" height="{h}" fill="#fff"/>'
+        for _ in range(3):
+            c = r.choice(PAL["pop"]); kind = r.random()
+            if kind < .4: s += f'<circle cx="{x+r.randint(10,w-10)}" cy="{y+r.randint(10,h-10)}" r="{r.randint(6,min(w,h)//3)}" fill="{c}" opacity=".85"/>'
+            elif kind < .75: s += f'<rect x="{x+r.randint(4,w//2)}" y="{y+r.randint(4,h//2)}" width="{r.randint(10,w//2)}" height="{r.randint(10,h//2)}" fill="{c}" opacity=".85"/>'
+            else: s += f'<path d="M{x+4} {y+h-6} Q{x+w/2} {y+r.randint(5,h)} {x+w-4} {y+8}" stroke="{c}" stroke-width="5" fill="none"/>'
+        x += w + r.randint(25, 45)
+    s += '<ellipse cx="200" cy="0" rx="160" ry="26" fill="#FFF8D0" opacity=".5"/>'
+    return s
+def svg_shops(r, gid):
+    s = sky(r, gid) + clouds(r)
+    x = 10
+    while x < 400:
+        w = r.randint(110, 150); col = r.choice(PAL["brick"]); aw = r.choice(PAL["pop"])
+        s += f'<rect x="{x}" y="60" width="{w}" height="170" fill="{col}"/>'
+        s += ''.join(f'<rect x="{x+12+i*(w-24)/3:.0f}" y="76" width="{(w-24)/3-8:.0f}" height="30" rx="10" fill="#FFF3D6" opacity=".85"/>' for i in range(3))
+        s += f'<rect x="{x+8}" y="140" width="{w-16}" height="80" fill="#BFE3F0"/><rect x="{x+8}" y="140" width="{w-16}" height="80" fill="none" stroke="#2B2D42" stroke-width="4"/>'
+        stripes = ''.join(f'<rect x="{x+4+i*(w-8)/6:.0f}" y="118" width="{(w-8)/12:.0f}" height="22" fill="#fff" opacity=".7"/>' for i in range(6))
+        s += f'<rect x="{x+4}" y="118" width="{w-8}" height="22" fill="{aw}"/>' + stripes
+        for _ in range(3):
+            s += f'<rect x="{x+16+r.randint(0,w-50)}" y="{r.randint(170,195)}" width="{r.randint(12,24)}" height="{r.randint(14,24)}" rx="3" fill="{r.choice(PAL["pop"])}"/>'
+        x += w + 8
+    s += '<rect y="228" width="400" height="22" fill="#9AA0A6"/>'
+    return s
+def svg_records(r, gid):
+    bg = r.choice(["#FFE29A", "#C2E9FB", "#FBC2EB", "#D4F5E0"])
+    s = f'<rect width="400" height="250" fill="{bg}"/><rect y="190" width="400" height="60" fill="#8D6346"/>'
+    for i in range(r.randint(2, 3)):
+        cx = 80 + i*95 + r.randint(-10, 10); cy = 120 + r.randint(-15, 10); c = r.choice(PAL["pop"])
+        s += f'<circle cx="{cx}" cy="{cy}" r="58" fill="#1C1C1C"/>' + ''.join(f'<circle cx="{cx}" cy="{cy}" r="{rr}" fill="none" stroke="#333" stroke-width="1.5"/>' for rr in (48, 40, 32))
+        s += f'<circle cx="{cx}" cy="{cy}" r="18" fill="{c}"/><circle cx="{cx}" cy="{cy}" r="3" fill="#fff"/>'
+    bx = r.randint(280, 320); y = 190
+    for _ in range(4):
+        h = r.randint(12, 18); w = r.randint(70, 90)
+        s += f'<rect x="{bx}" y="{y-h}" width="{w}" height="{h}" rx="2" fill="{r.choice(PAL["pop"])}"/>'; y -= h
+    return s
+def svg_vintage(r, gid):
+    bg = r.choice(["#F7E1C4", "#E3F0E8", "#F3DDE6", "#E4E9F7"])
+    s = f'<rect width="400" height="250" fill="{bg}"/><rect y="210" width="400" height="40" fill="#A47551"/>'
+    s += '<rect x="40" y="50" width="320" height="6" rx="3" fill="#555"/><rect x="40" y="50" width="6" height="160" fill="#555"/><rect x="354" y="50" width="6" height="160" fill="#555"/>'
+    x = 60
+    while x < 330:
+        c = r.choice(PAL["pop"] + PAL["brick"]); w = r.randint(28, 42); h = r.randint(80, 130)
+        s += f'<path d="M{x+w/2} 56 l0 10" stroke="#555" stroke-width="3"/><path d="M{x} 76 L{x+w/2} 66 L{x+w} 76 L{x+w-3} {76+h} L{x+3} {76+h}Z" fill="{c}"/>'
+        x += w + r.randint(2, 8)
+    return s
+def svg_food(r, gid, kind):
+    bg = r.choice(["#FFF3B0", "#FDE3DF", "#DDEBFA", "#D8F3EE", "#EFE2F8"])
+    s = f'<rect width="400" height="250" fill="{bg}"/><rect y="175" width="400" height="75" fill="{r.choice(["#8D6346","#A0522D","#6F4E37"])}"/><rect y="175" width="400" height="6" fill="#00000022"/>'
+    cx = r.randint(150, 250)
+    if kind == "cafes":
+        s += f'<ellipse cx="{cx}" cy="185" rx="80" ry="14" fill="#fff"/><path d="M{cx-50} 110 L{cx+50} 110 L{cx+40} 180 L{cx-40} 180Z" fill="{r.choice(PAL["pop"])}"/>'
+        s += f'<path d="M{cx+48} 125 q30 5 0 35" stroke="{r.choice(PAL["pop"])}" stroke-width="9" fill="none"/><ellipse cx="{cx}" cy="112" rx="48" ry="9" fill="#6F4E37"/>'
+        s += ''.join(f'<path d="M{cx-20+i*20} 95 q-8 -15 0 -30 q8 -15 0 -30" stroke="#fff" stroke-width="4" fill="none" opacity=".8"/>' for i in range(3))
+        s += f'<circle cx="{cx+130}" cy="170" r="22" fill="#E9A25B"/><circle cx="{cx+130}" cy="170" r="8" fill="{bg}"/>'
+    elif kind == "cheap":
+        s += f'<ellipse cx="{cx}" cy="183" rx="110" ry="16" fill="#E8483B"/><path d="M{cx-70} 150 Q{cx} 70 {cx+70} 150Z" fill="#E9A25B"/>'
+        s += f'<rect x="{cx-75}" y="148" width="150" height="10" rx="5" fill="#7CB342"/><rect x="{cx-72}" y="156" width="144" height="14" rx="6" fill="#6B3E26"/><rect x="{cx-70}" y="168" width="140" height="12" rx="6" fill="#E9A25B"/>'
+        s += ''.join(f'<ellipse cx="{cx-40+i*25}" cy="{110+abs(i-1.5)*6:.0f}" rx="3" ry="2" fill="#FFF3D6"/>' for i in range(4))
+    else:
+        s += f'<ellipse cx="{cx}" cy="180" rx="95" ry="22" fill="#fff"/><ellipse cx="{cx}" cy="178" rx="70" ry="15" fill="#F3EFE7"/>'
+        for _ in range(4):
+            s += f'<circle cx="{cx+r.randint(-40,40)}" cy="{r.randint(168,180)}" r="{r.randint(6,13)}" fill="{r.choice(["#7CB342","#E8483B","#E8930C","#8D6346","#FFD23F"])}"/>'
+        gx = cx + 130 if cx < 200 else cx - 130
+        s += f'<path d="M{gx-18} 100 Q{gx} 150 {gx+18} 100Z" fill="#8E1C2B" opacity=".9"/><rect x="{gx-2}" y="125" width="4" height="45" fill="#ddd"/><ellipse cx="{gx}" cy="172" rx="16" ry="4" fill="#ddd"/>'
+        if kind == "splurge":
+            s += ''.join(f'<path d="M{x} 40 l6 14 15 1 -12 10 4 15 -13 -8 -13 8 4 -15 -12 -10 15 -1z" fill="#FFD23F"/>' for x in (cx-30, cx+10)[:1 + (r.random() < .5)])
+    return s
+def svg_pubs(r, gid):
+    stone = r.choice(PAL["stone"])
+    s = f'<rect width="400" height="250" fill="{stone}"/>'
+    s += ''.join(f'<path d="M0 {y} Q100 {y+r.randint(-8,8)} 200 {y} T400 {y}" stroke="#00000018" stroke-width="3" fill="none"/>' for y in range(20, 160, 26))
+    s += '<path d="M90 250 L90 120 Q200 20 310 120 L310 250Z" fill="#4A2E1A"/><path d="M110 250 L110 128 Q200 50 290 128 L290 250Z" fill="#6B4226"/>'
+    s += f'<circle cx="200" cy="105" r="14" fill="#FFD23F" opacity=".9"/><circle cx="200" cy="105" r="30" fill="#FFD23F" opacity=".2"/>'
+    s += '<rect y="200" width="400" height="50" fill="#5A3A22"/>'
+    cx = r.randint(150, 250)
+    s += f'<path d="M{cx-26} 120 L{cx+26} 120 L{cx+20} 200 L{cx-20} 200Z" fill="{r.choice(["#C77A1A","#8B3A0F","#D99A2B","#3B1F10"])}" opacity=".95"/>'
+    s += f'<path d="M{cx-27} 112 Q{cx} 100 {cx+27} 112 L{cx+26} 124 L{cx-26} 124Z" fill="#FFF8E7"/><path d="M{cx-26} 120 L{cx+26} 120 L{cx+20} 200 L{cx-20} 200Z" fill="none" stroke="#fff" stroke-width="3" opacity=".6"/>'
+    return s
+def svg_bars(r, gid):
+    bg = r.choice(["#1E1B3A", "#14213D", "#2B1B2E", "#10302A"])
+    s = f'<rect width="400" height="250" fill="{bg}"/>'
+    s += ''.join(f'<circle cx="{r.randint(10,390)}" cy="{r.randint(10,140)}" r="{r.choice([1,1.5,2])}" fill="#fff" opacity=".6"/>' for _ in range(18))
+    neon = r.choice(["#FF4FA3", "#2EC4B6", "#FFD23F", "#9D7BFF"])
+    s += f'<rect x="40" y="30" width="120" height="44" rx="22" fill="none" stroke="{neon}" stroke-width="5"/><rect x="40" y="30" width="120" height="44" rx="22" fill="none" stroke="{neon}" stroke-width="14" opacity=".2"/>'
+    s += '<rect y="190" width="400" height="60" fill="#3B2A20"/><rect y="190" width="400" height="6" fill="#00000040"/>'
+    cx = r.randint(190, 300); c = r.choice(PAL["pop"])
+    s += f'<path d="M{cx-45} 90 L{cx+45} 90 L{cx} 140Z" fill="{c}" opacity=".9"/><path d="M{cx-45} 90 L{cx+45} 90 L{cx} 140Z" fill="none" stroke="#fff" stroke-width="3"/>'
+    s += f'<rect x="{cx-2}" y="140" width="4" height="40" fill="#fff"/><ellipse cx="{cx}" cy="182" rx="22" ry="5" fill="#fff"/><circle cx="{cx+28}" cy="88" r="9" fill="#7CB342"/>'
+    return s
+
+GEN = {"sights": svg_sights, "galleries": svg_galleries, "shops": svg_shops, "records": svg_records, "vintage": svg_vintage,
+       "cafes": lambda r, g: svg_food(r, g, "cafes"), "cheap": lambda r, g: svg_food(r, g, "cheap"),
+       "mid": lambda r, g: svg_food(r, g, "mid"), "splurge": lambda r, g: svg_food(r, g, "splurge"),
+       "pubs": svg_pubs, "bars": svg_bars}
+def wrap(body, vb="0 0 400 250"):
+    return f'<svg viewBox="{vb}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">{body}</svg>'
+
+os.makedirs(os.path.join(OUT, "img"), exist_ok=True)
+items = []
+for i, p in enumerate(P, 1):
+    lat, lon = coords(p)
+    pid = f"n{i}"
+    r = random.Random(p["name"])
+    open(os.path.join(OUT, "img", pid + ".svg"), "w").write(wrap(GEN[p["cat"]](r, "g" + pid)))
+    walk = max(1, round(dist((BASE["lat"], BASE["lon"]), (lat, lon)) * 1.3 / 80))
+    q = p["name"] + ", " + re.sub(r"^(Avenue A–C, |off |Upper Level, )", "", p["addr"]) + ", Nottingham"
+    items.append(dict(id=pid, cat=p["cat"], name=p["name"], addr=p["addr"], text=p["text"], tip=p["tip"],
+                      lat=round(lat, 6), lon=round(lon, 6), price=p["price"], walk=walk, img=f"img/{pid}.svg",
+                      q=q, ta=p["ta"], far=p["far"] or walk > 25, web=p["web"]))
+
+# special images
+r = random.Random("cover")
+cover = sky(r, "cv") + clouds(r)
+cover += '<path d="M0 250 L0 150 Q70 120 140 140 Q200 155 240 130 L400 140 L400 250Z" fill="#D9B07A"/>'
+cover += warehouse(20, 110, 70, "#B5523B", r, 150) + warehouse(260, 130, 90, "#A4442F", r, 170)
+cover += '<rect x="150" y="80" width="100" height="90" fill="#EFE6D2"/><path d="M165 80 Q200 20 235 80Z" fill="#7FA79A"/><rect x="196" y="16" width="8" height="18" fill="#FFD23F"/>'
+cover += ''.join(f'<rect x="{158+i*18}" y="100" width="10" height="60" fill="#D8CCB0"/>' for i in range(5))
+cover += '<rect x="130" y="170" width="140" height="10" fill="#C9BFA8"/><rect y="200" width="400" height="50" fill="#8F9AA3"/>'
+cover += '<g fill="#C9A86A"><path d="M120 200 l10 -20 h25 l6 20z"/><path d="M245 200 l6 -20 h25 l10 20z"/></g>'
+open(os.path.join(OUT, "img", "cover.svg"), "w").write(wrap(cover))
+r = random.Random("tram")
+tram = sky(r, "tr") + clouds(r) + '<rect y="190" width="400" height="60" fill="#8F9AA3"/><rect y="196" width="400" height="4" fill="#555"/><path d="M0 40 L400 40" stroke="#333" stroke-width="2"/>'
+tram += '<rect x="40" y="110" width="320" height="80" rx="18" fill="#24563F"/><rect x="40" y="165" width="320" height="10" fill="#FFD23F"/>'
+tram += ''.join(f'<rect x="{60+i*58}" y="122" width="44" height="34" rx="6" fill="#C2E9FB"/>' for i in range(5))
+tram += '<path d="M200 110 L200 70 L230 40" stroke="#333" stroke-width="3" fill="none"/><rect x="250" y="200" width="80" height="34" rx="6" fill="#1877D0"/><text x="290" y="223" font-family="Arial" font-weight="700" font-size="14" fill="#fff" text-anchor="middle">P+R</text>'
+open(os.path.join(OUT, "img", "transit.svg"), "w").write(wrap(tram))
+
+cats = {k: dict(v) for k, v in CATS.items()}
+data = {"cats": cats, "items": items, "base": BASE}
+open(os.path.join(OUT, "data.js"), "w").write("window.GUIDE=" + json.dumps(data, ensure_ascii=False) + ";\n")
+print(len(items), "items")
+for it in sorted(items, key=lambda x: -x["walk"])[:8]: print(it["walk"], it["name"], it["far"])

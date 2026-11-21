@@ -1,0 +1,650 @@
+{
+"City of Caves": [
+[
+52.9502939,
+-1.1460421,
+"natural",
+"cave",
+"City of Caves, The Meadows, West Bridgford, City of Nottingham, East M"
+]
+],
+"National Justice Museum": [
+[
+52.9507097,
+-1.1442178,
+"tourism",
+"museum",
+"National Justice Museum, High Pavement, Lace Market, Hockley, The Mead"
+]
+],
+"Nottingham Castle": [
+[
+52.9486694,
+-1.1625171,
+"highway",
+"residential",
+"Lenton Road, The Park, Broad Marsh, The Park, City of Nottingham, East"
+],
+[
+52.9500988,
+-1.1576907,
+"highway",
+"tertiary",
+"Lenton Road, The Park, Broad Marsh, The Park, City of Nottingham, East"
+],
+[
+52.9504749,
+-1.1555579,
+"highway",
+"tertiary",
+"Lenton Road, The Park, Broad Marsh, The Park, City of Nottingham, East"
+]
+],
+"Park Tunnel": [
+[
+52.9541652,
+-1.1598364,
+"highway",
+"footway",
+"Park Tunnel, The Park, Broad Marsh, The Park, City of Nottingham, East"
+]
+],
+"Old Market Square & the Council House": [
+[
+52.9534236,
+-1.1486107,
+"amenity",
+"townhall",
+"Council House, Old Market Square, Rainbow Quarter, Broad Marsh, The Me"
+]
+],
+"Lace Market & St Mary's Church": [
+[
+52.9511869,
+-1.1430479,
+"amenity",
+"place_of_worship",
+"St Mary's Church, 40, High Pavement, Lace Market, Hockley, St Ann's, C"
+]
+],
+"Robin Hood statue": [],
+"Green's Windmill": [
+[
+52.9520982,
+-1.1293862,
+"building",
+"windmill",
+"Green's Windmill, Belvoir Hill, Hockley, Sneinton, City of Nottingham,"
+],
+[
+52.9520503,
+-1.130944,
+"amenity",
+"parking",
+"Green's Windmill, Windmill Lane, Hockley, Sneinton, City of Nottingham"
+]
+],
+"The Arboretum": [
+[
+52.9598009,
+-1.1573829,
+"information",
+"board",
+"Welcome to the Arboretum, Lime Tree Avenue, Hockley, Forest Fields, Ci"
+]
+],
+"Theatre Royal & Royal Concert Hall": [
+[
+52.955697,
+-1.151785,
+"amenity",
+"theatre",
+"Royal Concert Hall, Theatre Square, Rainbow Quarter, Broad Marsh, The "
+]
+],
+"Broadway Cinema": [
+[
+52.9543061,
+-1.1436625,
+"amenity",
+"cinema",
+"Broadway Cinema, 14, Broad Street, Rainbow Quarter, Hockley, St Ann's,"
+]
+],
+"Wollaton Hall & Deer Park": [
+[
+52.9479602,
+-1.209771,
+"tourism",
+"museum",
+"Wollaton Hall, Elizabethan Avenue, Lenton Abbey, Wollaton, City of Not"
+],
+[
+52.9540742,
+-1.2119357,
+"highway",
+"bus_stop",
+"Wollaton Hall, Wollaton Road, Wollaton Vale, Wollaton, City of Notting"
+]
+],
+"Nottingham Contemporary": [
+[
+52.9510478,
+-1.1459287,
+"tourism",
+"gallery",
+"Nottingham Contemporary, Weekday Cross, Lace Market, Broad Marsh, The "
+]
+],
+"Surface Gallery": [
+[
+52.9532933,
+-1.137724,
+"tourism",
+"gallery",
+"Surface Gallery, 16, Southwell Road, Lace Market, Hockley, St Ann's, C"
+]
+],
+"BACKLIT": [],
+"New Art Exchange": [
+[
+52.9659502,
+-1.1684431,
+"tourism",
+"museum",
+"New Art Exchange, 39, Gregory Boulevard, Hyson Green, Bulwell, City of"
+]
+],
+"Primary": [],
+"Bonington Gallery": [],
+"Fletcher Gate Fine Art": [
+[
+52.9526525,
+-1.1456809,
+"highway",
+"tertiary",
+"Fletcher Gate, Rainbow Quarter, Hockley, St Ann's, City of Nottingham,"
+],
+[
+52.9532398,
+-1.1453277,
+"highway",
+"unclassified",
+"Fletcher Gate, Rainbow Quarter, Hockley, St Ann's, City of Nottingham,"
+],
+[
+52.9524914,
+-1.1458788,
+"highway",
+"bus_stop",
+"Fletcher Gate, Bridlesmith Walk, Rainbow Quarter, Hockley, St Ann's, C"
+]
+],
+"Nottingham Society of Artists": [
+[
+52.9513887,
+-1.1528966,
+"amenity",
+"fast_food",
+"Viet 80s, 57-61, Friar Lane, Broad Marsh, The Park, City of Nottingham"
+],
+[
+52.9512748,
+-1.1533501,
+"highway",
+"unclassified",
+"Friar Lane, Broad Marsh, The Park, City of Nottingham, East Midlands, "
+],
+[
+52.9525517,
+-1.1514376,
+"highway",
+"tertiary",
+"Friar Lane, Rainbow Quarter, Broad Marsh, The Meadows, City of Notting"
+]
+],
+"Djanogly Gallery, Lakeside Arts": [],
+"Hooten Street Project": [
+[
+52.9547434,
+-1.1379144,
+"amenity",
+"marketplace",
+"Sneinton Market, Bath Street, Lace Market, Hockley, St Ann's, City of "
+],
+[
+52.9474211,
+-1.1425006,
+"railway",
+"stop",
+"Nottingham, Station Street, Lace Market, Hockley, The Meadows, City of"
+]
+],
+"Debbie Bryan": [],
+"Sneinton Market Avenues": [],
+"Cobden Chambers": [
+[
+52.9539019,
+-1.1458127,
+"highway",
+"footway",
+"Cobden Chambers, Rainbow Quarter, Hockley, St Ann's, City of Nottingha"
+]
+],
+"Hurts Yard": [
+[
+52.9542789,
+-1.1524312,
+"highway",
+"footway",
+"Hurts Yard, Broad Marsh, The Park, City of Nottingham, East Midlands, "
+],
+[
+52.9547505,
+-1.1525592,
+"highway",
+"footway",
+"Hurts Yard, Broad Marsh, The Park, City of Nottingham, East Midlands, "
+],
+[
+52.9538279,
+-1.1524314,
+"highway",
+"footway",
+"Hurts Yard, Broad Marsh, The Park, City of Nottingham, East Midlands, "
+]
+],
+"Flying Horse Walk": [
+[
+52.9528024,
+-1.1485822,
+"shop",
+"mall",
+"Flying Horse Walk, Rainbow Quarter, Broad Marsh, The Meadows, City of "
+],
+[
+52.9528217,
+-1.1485124,
+"highway",
+"footway",
+"Flying Horse Walk, Rainbow Quarter, Broad Marsh, The Meadows, City of "
+],
+[
+52.95315,
+-1.1484408,
+"highway",
+"footway",
+"Flying Horse Walk, Rainbow Quarter, Broad Marsh, The Meadows, City of "
+]
+],
+"Bridlesmith Gate & Bridlesmith Walk": [
+[
+52.9521219,
+-1.1471587,
+"highway",
+"pedestrian",
+"Bridlesmith Gate, Rainbow Quarter, Broad Marsh, The Meadows, City of N"
+],
+[
+52.9530883,
+-1.147193,
+"highway",
+"unclassified",
+"Bridlesmith Gate, Rainbow Quarter, Hockley, St Ann's, City of Nottingh"
+],
+[
+52.9527732,
+-1.1472671,
+"highway",
+"unclassified",
+"Bridlesmith Gate, Rainbow Quarter, Broad Marsh, St Ann's, City of Nott"
+]
+],
+"West End Arcade": [
+[
+52.9543223,
+-1.153294,
+"highway",
+"footway",
+"West End Arcade, Broad Marsh, The Park, City of Nottingham, East Midla"
+],
+[
+52.9542876,
+-1.1532875,
+"shop",
+"mall",
+"West End Arcade, Broad Marsh, The Park, City of Nottingham, East Midla"
+]
+],
+"Paul Smith, Willoughby House": [
+[
+52.9513223,
+-1.147393,
+"building",
+"yes",
+"Willoughby House, Low Pavement, Lace Market, Broad Marsh, The Meadows,"
+],
+[
+52.9513713,
+-1.1474046,
+"shop",
+"clothes",
+"Paul Smith, 20-22, Low Pavement, Lace Market, Broad Marsh, The Meadows"
+]
+],
+"Delilah Fine Foods": [],
+"Victoria Centre Market": [
+[
+52.9563816,
+-1.1464933,
+"amenity",
+"marketplace",
+"Victoria Centre Market, Glasshouse Street, Rainbow Quarter, Hockley, S"
+]
+],
+"Rough Trade Nottingham": [
+[
+52.9538982,
+-1.1441727,
+"shop",
+"music",
+"Rough Trade, 5, Broad Street, Rainbow Quarter, Hockley, St Ann's, City"
+]
+],
+"Rob's Records": [],
+"Five Leaves Bookshop": [
+[
+52.9541037,
+-1.1487926,
+"shop",
+"books",
+"Five Leaves Bookshop, 14A, Long Row, Rainbow Quarter, Broad Marsh, The"
+]
+],
+"Page 45": [
+[
+52.9541205,
+-1.151488,
+"shop",
+"collector",
+"Page 45, 9, Market Street, Broad Marsh, The Meadows, City of Nottingha"
+]
+],
+"Hopkinsons Vintage & Antiques": [],
+"Derby Road antiques & vintage strip": [
+[
+52.9451387,
+-1.188156,
+"highway",
+"primary",
+"Derby Road, Wollaton Park, City of Nottingham, East Midlands, England,"
+],
+[
+52.9490299,
+-1.1789932,
+"highway",
+"primary",
+"Derby Road, Old Lenton, Lenton, City of Nottingham, East Midlands, Eng"
+],
+[
+52.951666,
+-1.1734009,
+"highway",
+"primary",
+"Derby Road, Radford, City of Nottingham, East Midlands, England, NG7 1"
+]
+],
+"Cow Vintage": [],
+"Goose Gate vintage & Hockley shops": [
+[
+52.9536519,
+-1.1435363,
+"highway",
+"pedestrian",
+"Goose Gate, Rainbow Quarter, Hockley, St Ann's, City of Nottingham, Ea"
+],
+[
+52.9536952,
+-1.1429454,
+"highway",
+"unclassified",
+"Goose Gate, Rainbow Quarter, Hockley, St Ann's, City of Nottingham, Ea"
+],
+[
+52.9537089,
+-1.1421613,
+"highway",
+"unclassified",
+"Goose Gate, Rainbow Quarter, Hockley, St Ann's, City of Nottingham, Ea"
+]
+],
+"200 Degrees, Flying Horse Walk": [
+[
+52.9530649,
+-1.148737,
+"amenity",
+"cafe",
+"200 Degrees Coffee, 16, Flying Horse Walk, Poultry, Rainbow Quarter, B"
+]
+],
+"Cartwheel Coffee": [],
+"Doughnotts": [],
+"The Pudding Pantry": [
+[
+52.9565201,
+-1.1490772,
+"amenity",
+"cafe",
+"The Pudding Pantry, 27-29, Trinity Square, Rainbow Quarter, Hockley, S"
+]
+],
+"Debbie Bryan tearoom": [],
+"Malt Cross": [
+[
+52.9530698,
+-1.1524066,
+"amenity",
+"pub",
+"Malt Cross, 16, St. James's Street, Broad Marsh, The Park, City of Not"
+]
+],
+"Bustler Market": [
+[
+52.9542858,
+-1.1375914,
+"amenity",
+"food_court",
+"Bustler, Bath Street, Lace Market, Hockley, St Ann's, City of Nottingh"
+]
+],
+"Annie's Burger Shack": [],
+"Shanghai Shanghai": [],
+"Kayal": [
+[
+52.9538691,
+-1.1437717,
+"amenity",
+"restaurant",
+"Kayal, 8, Broad Street, Rainbow Quarter, Hockley, St Ann's, City of No"
+]
+],
+"Kushi-ya": [],
+"Ib\u00e9rico World Tapas": [],
+"Bar Gigi": [
+[
+52.9530723,
+-1.1485492,
+"amenity",
+"restaurant",
+"Bar Gigi, 15, Flying Horse Walk, Rainbow Quarter, Broad Marsh, The Mea"
+]
+],
+"The Larder on Goosegate": [],
+"Sexy Mamma Love Spaghetti": [
+[
+52.9538223,
+-1.1435958,
+"amenity",
+"restaurant",
+"Sexy Mamma Love Spaghetti, 3, Heathcoat Street, Rainbow Quarter, Hockl"
+],
+[
+52.9315821,
+-1.1260691,
+"amenity",
+"restaurant",
+"k\u014dn\u0101, 27, Tudor Square, Abbey Park, West Bridgford, City of Nottingham"
+]
+],
+"Shio": [],
+"MemSaab": [],
+"Caf\u00e9 Roya": [
+[
+52.9300739,
+-1.2189174,
+"amenity",
+"cafe",
+"Caf\u00e9 Roya, 130, Wollaton Road, Beeston, City of Nottingham, Nottingham"
+]
+],
+"Alchemilla": [
+[
+52.9550334,
+-1.1655568,
+"amenity",
+"restaurant",
+"Alchemilla, 192, Derby Road, The Park, City of Nottingham, East Midlan"
+]
+],
+"Restaurant Sat Bains": [
+[
+52.9250098,
+-1.167494,
+"amenity",
+"restaurant",
+"Restaurant Sat Bains, Lenton Lane, Clifton, City of Nottingham, East M"
+]
+],
+"Hart's Kitchen": [],
+"Ye Olde Trip to Jerusalem": [
+[
+52.9493621,
+-1.1526697,
+"amenity",
+"pub",
+"Ye Olde Trip to Jerusalem, Castle Road, Broad Marsh, The Meadows, City"
+]
+],
+"The Bell Inn": [
+[
+52.9533869,
+-1.1520559,
+"amenity",
+"pub",
+"The Bell Inn, 18, Angel Row, Broad Marsh, The Park, City of Nottingham"
+]
+],
+"Hand & Heart": [
+[
+52.9554022,
+-1.1602375,
+"amenity",
+"pub",
+"Hand and Heart, 65-67, Derby Road, Broad Marsh, The Park, City of Nott"
+]
+],
+"Kean's Head": [
+[
+52.9513105,
+-1.1440427,
+"amenity",
+"pub",
+"Kean's Head, 46, Saint Mary's Gate, Lace Market, Hockley, St Ann's, Ci"
+]
+],
+"The Herbert Kilpin": [],
+"The Organ Grinder": [
+[
+52.9563822,
+-1.1629195,
+"amenity",
+"pub",
+"The Organ Grinder, 21, Alfreton Road, Broad Marsh, The Park, City of N"
+]
+],
+"Sir John Borlase Warren": [
+[
+52.9557675,
+-1.1622673,
+"amenity",
+"pub",
+"Sir John Borlase Warren, 1, Ilkeston Road, Broad Marsh, The Park, City"
+]
+],
+"The Lincolnshire Poacher": [
+[
+52.9621653,
+-1.1514162,
+"amenity",
+"pub",
+"Lincolnshire Poacher, 161-163, Mansfield Road, Hockley, Carrington, Ci"
+]
+],
+"Fox & Grapes": [],
+"The Vat & Fiddle": [],
+"The Angel Microbrewery": [
+[
+52.9533896,
+-1.1433916,
+"craft",
+"brewery",
+"The Angel Microbrewery, 7, Stoney Street, Rainbow Quarter, Hockley, St"
+]
+],
+"Boilermaker": [],
+"The Hockley Arts Club": [
+[
+52.9533103,
+-1.1443296,
+"amenity",
+"bar",
+"Hockley Arts Club, 25, Warser Gate, Rainbow Quarter, Hockley, St Ann's"
+]
+],
+"Junkyard": [
+[
+52.9525025,
+-1.1461554,
+"amenity",
+"bar",
+"Junkyard Bottle Shop and Pour House, 12, Bridlesmith Walk, Rainbow Qua"
+]
+],
+"The Canal House": [
+[
+52.9484974,
+-1.1493948,
+"place",
+"house",
+"Canal Side House, 6, Canal Street, Lace Market, Broad Marsh, The Meado"
+]
+],
+"Broadway Cinema bar": [
+[
+52.9543061,
+-1.1436625,
+"amenity",
+"cinema",
+"Broadway Cinema, 14, Broad Street, Rainbow Quarter, Hockley, St Ann's,"
+]
+],
+"The Bodega": [
+[
+52.9537512,
+-1.1459484,
+"amenity",
+"bar",
+"The Bodega, 23, Pelham Street, Rainbow Quarter, Hockley, St Ann's, Cit"
+]
+]
+}
