@@ -89,9 +89,9 @@ add("galleries","Bonington Gallery","Bonington Building, Dryden Street, NG1 4FZ"
 add("galleries","Fletcher Gate Fine Art Gallery","18 Fletcher Gate, Lace Market, NG1 2FZ",
  "Also known as the Fletcher Gate Art Gallery. An independent gallery for original fine art for sale, from local and national artists, in the Lace Market. A relaxed place to browse paintings you could actually take home.",
  "Thu–Sun 11:00–16:00",ta=False,geo="Fletcher Gate, Nottingham",ll=(52.9530,-1.1458))
-add("galleries","Nottingham Society of Artists","61 Friar Lane, NG1 6DA",
- "Founded in 1880, the society runs its own gallery behind an unassuming door on Friar Lane. Rolling exhibitions of members' work, often very affordable.",
- "Combine with the Castle",ta=False,geo="61 Friar Lane, Nottingham")
+add("galleries","Friar Lane Gallery (Nottingham Society of Artists)","St Luke's House, 71–73 Friar Lane, NG1 6DH",
+ "The Nottingham Society of Artists, founded in 1880, runs its own gallery in an Art Deco building on Friar Lane, a few minutes from the Castle. Changing exhibitions of members' and guest artists' work all year, often very affordable to buy.",
+ "Opening times vary by exhibition; check the society's website · gallery 0115 948 0476",web="https://nottinghamartists.org.uk",ta=False,geo="Nottingham Society of Artists, Friar Lane",ll=(52.951169,-1.153171))
 add("galleries","Djanogly Gallery, Lakeside Arts","University Park, NG7 2RD",
  "The University of Nottingham's arts centre beside the Highfields lake, with a gallery of historic and modern shows, plus theatre and music. A lovely place for a lakeside walk.",
  "Tram to University of Nottingham",web="https://www.lakesidearts.org.uk",far=True,geo="Djanogly Art Gallery, Nottingham")

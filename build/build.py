@@ -319,7 +319,7 @@ try:
     IDS = {it["name"]: it["id"] for it in _prev["items"]}
 except Exception:
     IDS = {}
-RENAMED = {"The Kilpin Beer Cafe": "The Herbert Kilpin"}
+RENAMED = {"The Kilpin Beer Cafe": "The Herbert Kilpin", "Friar Lane Gallery (Nottingham Society of Artists)": "Nottingham Society of Artists"}
 _used = set(IDS.values()); _next = [max([int(v[1:]) for v in _used] + [0]) + 1]
 def stable_id(name):
     pid = IDS.get(name) or IDS.get(RENAMED.get(name, ""))
